@@ -3,7 +3,7 @@ import './post.css';
 
 import Comment from '../comment/comment';
 
-class PostTimeLine extends Component {
+class Post extends Component {
 
     getPostContent = () => {
         if (this.props.postImage) {
@@ -95,4 +95,4 @@ class PostTimeLine extends Component {
     }
 }
 
-export default PostTimeLine;
+export default Post;
