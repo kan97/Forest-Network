@@ -1,7 +1,7 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
-import Home from '../containers/home'
-import Profile from '../components/userInfo/userInfo'
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Home from '../containers/home';
+import Profile from '../components/userInfo/userInfo';
 
 const routes = [
     {
@@ -12,7 +12,9 @@ const routes = [
     {
         path: '/profile',
         exact: false,
-        main: () => <Profile />
+        main: () => <Profile 
+        userAvatar="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg"
+        />
     }
 ]
 

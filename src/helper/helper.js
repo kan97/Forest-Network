@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from '../components/navbar/navbar';
 import Post from '../components/post/post';
-import UserInfo from '../components/userInfo/userInfo';
 import FollowerList from '../components/follower/followerList';
 import { showContentMenus } from '../routes'
+import followerList from '../store/reducers/followerList';
 
 export const getPostExample = () => {
     return (<Post 
@@ -20,23 +20,12 @@ export const getPostExample = () => {
     />);
   }
   
-  export const getUserInfoExample = () => {
-    return (<UserInfo 
-      userAvatar="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg"
-    />);
-  }
-  
   export const getMainScreenExample = () => {
     return (
       <React.Fragment>
         <Navbar />
         {showContentMenus()}
       </React.Fragment>
-    );
-  }
-  export const getList = () => {
-    return (
-      <FollowerList list={getFollowingList()} />
     );
   }
   
@@ -82,10 +71,10 @@ export const getPostExample = () => {
       }
     )
   
-    return list;
+    return (<FollowerList title="Followers" list={list}/>);
   }
   
-  const getFollowingList = () => {
+  export const getFollowingList = () => {
     let list = [];
     list.push(
       {
@@ -102,11 +91,27 @@ export const getPostExample = () => {
         isFollowing:true
       }
     )
+
+    list.push(
+      {
+        avatar:"https://instagram.fsgn2-3.fna.fbcdn.net/vp/47ec7e42667162b88ee6edad54156584/5CA352F1/t51.2885-19/s150x150/44377321_281267495857242_1536691637256716288_n.jpg",
+        name:"KTT",
+        isFollowing:true
+      }
+    )
   
     list.push(
       {
         avatar:"https://pokemongohub.net/wp-content/uploads/2018/03/mew-pokemon-go.jpg",
         name:"Mew mew",
+        isFollowing:true
+      }
+    )
+
+    list.push(
+      {
+        avatar:"https://www.wonderplugin.com/videos/demo-image0.jpg",
+        name:"Sight",
         isFollowing:true
       }
     )
@@ -126,6 +131,14 @@ export const getPostExample = () => {
         isFollowing:true
       }
     )
+
+    list.push(
+      {
+        avatar:"https://images.pexels.com/photos/658687/pexels-photo-658687.jpeg?auto=compress&cs=tinysrgb&h=350",
+        name:"Rosike",
+        isFollowing:true
+      }
+    )
   
-    return list;
+    return (<FollowerList title="Following" list={list}/>);
   }

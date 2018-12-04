@@ -7,7 +7,7 @@ import Post from '../post/post';
 import { Link } from 'react-router-dom'
 
 import PropTypes from "prop-types";
-import { getPostExample, getList } from '../../helper/helper';
+import { getFollowerList, getFollowingList } from '../../helper/helper';
 
 class Home extends Component {
     state = {
@@ -35,7 +35,7 @@ class Home extends Component {
             styles={followStyles}
             showCloseIcon={false}
         >
-            {getList()}
+            {getFollowerList()}
         </Modal>;
 
         const modalFollowing = <Modal
@@ -45,7 +45,7 @@ class Home extends Component {
             styles={followStyles}
             showCloseIcon={false}
         >
-            {getList()}
+            {getFollowingList()}
         </Modal>;
 
 

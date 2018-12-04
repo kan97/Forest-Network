@@ -7,8 +7,8 @@ class FollowerList extends Component {
 
     getFollowerList = () => {
         if (this.props.list) {
-            return this.props.list.map((follower, index)=>{
-                return <Follower 
+            return this.props.list.map((follower, index) => {
+                return <Follower
                     key={index}
                     avatar={follower.avatar}
                     name={follower.name}
@@ -25,13 +25,15 @@ class FollowerList extends Component {
         }
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div className="container list-follow-container">
+                <div className="row list-follow-title">{this.props.title}</div>
+                <div className="horizal-line" />
                 {this.getFollowerList()}
             </div>
-         );
+        );
     }
 }
- 
+
 export default FollowerList;
