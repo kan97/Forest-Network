@@ -7,7 +7,7 @@ import Post from '../post/post';
 import { Link } from 'react-router-dom'
 
 import PropTypes from "prop-types";
-import { getPostExample, getList } from '../../helper/helper';
+import FollowerList from '../follower/followerList';
 
 class Home extends Component {
     state = {
@@ -35,7 +35,7 @@ class Home extends Component {
             styles={followStyles}
             showCloseIcon={false}
         >
-            {getList()}
+            <FollowerList title="Followers" list={this.props.followerList}/>
         </Modal>;
 
         const modalFollowing = <Modal
@@ -45,7 +45,7 @@ class Home extends Component {
             styles={followStyles}
             showCloseIcon={false}
         >
-            {getList()}
+            <FollowerList title="Following" list={this.props.followingList}/>
         </Modal>;
 
 
@@ -67,7 +67,7 @@ class Home extends Component {
                                 <div className="col-sm-12">
 
                                     <div className="home-name float-left">
-                                        Kiet Tieu
+                                        {this.props.userInfo.fullName}
                                     </div>
                                     <button type="button" className="btn btn-primary btn-follow float-left" >Follow</button>
                                     <Link to="/profile" type="button" className="btn btn-default btn-edit float-left">Edit Profile
@@ -75,15 +75,15 @@ class Home extends Component {
                                 </div>
                             </div>
                             <div className="row align-left spacing-top">
-                                <div className="col-sm-3"><span className="home-number">111</span><span>Post</span></div>
-                                <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowers'); }}><span className="home-number">56</span><span>followers</span></div>
-                                <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowing'); }}><span className="home-number">98</span><span>following</span></div>
+                                <div className="col-sm-3"><span className="home-number">{this.props.userInfo.post}</span><span>Post</span></div>
+                                <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowers'); }}><span className="home-number">{this.props.userInfo.followers}</span><span>followers</span></div>
+                                <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowing'); }}><span className="home-number">{this.props.userInfo.following}</span><span>following</span></div>
                                 <div className="col-sm-3"></div>
                             </div>
                             <div className="row align-left spacing-top">
                                 <div className="col-sm-12">
                                     <span>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
+                                    {this.props.userInfo.bio}
                                     </span>
                                 </div>
                             </div>
@@ -103,7 +103,10 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-    postList: PropTypes.array
+    userInfo: PropTypes.object,
+    postList: PropTypes.array,
+    followerList: PropTypes.array,
+    followingList: PropTypes.array
 };
 const followStyles = {
     modal: {

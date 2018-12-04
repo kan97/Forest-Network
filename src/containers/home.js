@@ -4,7 +4,10 @@ import {
 } from "react-redux";
 
 const mapStateToProps = state => ({
-  postList: state.postList.postList
+  userInfo: state.userInfo,
+  postList: state.postList.postList,
+  followerList: state.followerList.followerList,
+  followingList: state.followingList.followingList
 });
 
 export default connect(

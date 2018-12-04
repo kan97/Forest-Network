@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './navbar.css';
+import { Link } from 'react-router-dom'
 
 class Navbar extends Component {
 
@@ -10,7 +11,7 @@ class Navbar extends Component {
                     <div className="row" style={{width: "970px"}}>
                         <div className="col-sm-4">
                             <div style={{maxWidth: "75%"}}>
-                                <img className="fit-content" src="/img/title.png" alt="Forest Network"/>
+                                <Link to="/"><img className="fit-content" src="/img/title.png" alt="Forest Network"/></Link>
                             </div>
                         </div>
                         <div className="col-sm-4">
