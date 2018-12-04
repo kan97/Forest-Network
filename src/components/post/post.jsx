@@ -88,7 +88,7 @@ class Post extends Component {
                         {this.props.ownerName}
                     </div>
                     <div className="col-sm-5 post-time">
-                        <span class="glyphicon glyphicon-time post-react"></span>
+                        <span className="glyphicon glyphicon-time post-react"></span>
                         {this.props.postTime}
                     </div>
                 </div>
@@ -99,11 +99,11 @@ class Post extends Component {
                 <div className="post-horizal-line" />
                 <div className="post-footer row">
                     <div className="col-sm-2 text-left post-react-button" onClick={this.handleReact}>
-                        {this.state.isLiked ? <span class="glyphicon glyphicon-heart post-react"></span> : <span class="glyphicon glyphicon-heart-empty post-react"></span>}
+                        {this.state.isLiked ? <span className="glyphicon glyphicon-heart post-react"></span> : <span className="glyphicon glyphicon-heart-empty post-react"></span>}
                         {this.props.postLike}
                     </div>
                     <div className="col-sm-2 text-left post-react-button" onClick={this.handleClick}>
-                        <span class="glyphicon glyphicon-align-left post-react"></span>
+                        <span className="glyphicon glyphicon-align-left post-react"></span>
                         {this.props.postComment}
                     </div>
 

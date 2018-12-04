@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom'
-import { showContentMenus } from './routes'
-
 import {getMainScreenExample} from './helper/helper';
 
 class App extends Component {

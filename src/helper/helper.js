@@ -1,9 +1,8 @@
 import React from 'react';
 import Post from '../components/post/post';
 import UserInfo from '../components/userInfo/userInfo';
-import Navbar from '../components/navbar/navbar';
-import Home from '../components/home/home';
 import FollowerList from '../components/follower/followerList';
+import { showContentMenus } from '../routes'
 
 export const getPostExample = () => {
     return (<Post 
@@ -29,8 +28,7 @@ export const getPostExample = () => {
   export const getMainScreenExample = () => {
     return (
       <React.Fragment>
-        <Navbar />
-        <Home />
+        {showContentMenus()}
       </React.Fragment>
     );
   }
@@ -40,7 +38,7 @@ export const getPostExample = () => {
     );
   }
   
-  const getFollowerList = () => {
+  export const getFollowerList = () => {
     let list = [];
     list.push(
       {

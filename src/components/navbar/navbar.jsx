@@ -14,11 +14,11 @@ class Navbar extends Component {
                             </div>
                         </div>
                         <div className="col-sm-4">
-                            <input type="text" class="form-control" placeholder="Search 🔎"></input>
+                            <input type="text" className="form-control" placeholder="Search 🔎"></input>
                         </div>
                         <div className="col-sm-4">
-                            <button type="button" class="btn btn-default right-button no-border" style={{color: "#286090"}}>Sign Up</button>
-                            <button type="button" class="btn btn-primary right-button" >Log In</button>
+                            <button type="button" className="btn btn-default right-button no-border" style={{color: "#286090"}}>Sign Up</button>
+                            <button type="button" className="btn btn-primary right-button" >Log In</button>
                         </div>
                     </div>
                 </div>
