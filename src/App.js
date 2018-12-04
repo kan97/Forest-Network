@@ -4,12 +4,14 @@ import './App.css';
 
 import Post from './components/post/post';
 import UserInfo from './components/userInfo/userInfo';
+import Navbar from './components/navbar/navbar';
+import Home from './components/home/home';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {getPostExample()}
+        {getMainScreenExample()}
       </div>
     );
   }
@@ -34,4 +36,13 @@ const getUserInfoExample = () => {
   return (<UserInfo 
     userAvatar="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg"
   />);
+}
+
+const getMainScreenExample = () => {
+  return (
+    <React.Fragment>
+      <Navbar />
+      <Home />
+    </React.Fragment>
+  );
 }

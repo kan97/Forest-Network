@@ -1,0 +1,70 @@
+.align-left {
+    text-align: left;
+}
+
+img.rounded {
+    border-radius: 50%;
+}
+
+.avatar {
+    border-style: solid;
+    border-color: #fafafa;
+    border-width: 2px;
+}
+
+.row.row-full {
+    width: 1024px;
+}
+
+.center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.home-name {
+    display: inline;
+    font-weight: normal;
+    font-size: 28px;
+    margin-right: 20px;
+}
+
+.btn-follow {
+    vertical-align: baseline;
+    display: inline;
+    min-width: 120px;
+}
+
+.btn-following {
+    
+}
+
+.spacing-top {
+    margin-top: 20px;
+    display: block;
+}
+
+.home-number {
+    display: inline;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+.data-info-container {
+    position: relative;
+    height: 100%;
+}
+
+span {
+    font-size: 16px;
+    overflow-wrap: break-word;
+}
