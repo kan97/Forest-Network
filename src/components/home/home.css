@@ -78,3 +78,7 @@ span {
     font-size: 16px;
     overflow-wrap: break-word;
 }
+
+.clickable-div {
+    cursor: pointer;
+}

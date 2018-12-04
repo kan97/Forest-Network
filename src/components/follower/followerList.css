@@ -1,5 +1,4 @@
 .list-follow-container {
-    width: 100%;
     max-width: 400px;
     min-width: 300px;
 
@@ -8,4 +7,5 @@
 
     border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: #fff;
 }
