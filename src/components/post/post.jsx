@@ -4,20 +4,50 @@ import './post.css';
 import Comment from '../comment/comment';
 
 class Post extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            isExpandComment: false,
+            isLiked: false
+         }
+    }
+
+    componentDidMount = () => {
+        this.setState({
+            isLiked: this.props.isLiked
+        });
+    }
+
+    handleClick = () => {
+        this.setState({
+            isExpandComment: !this.state.isExpandComment
+        });
+    }
+
+    handleReact = () => {
+        this.setState({
+            isLiked: !this.state.isLiked
+        });
+    }
 
     getPostContent = () => {
-        if (this.props.postImage) {
-            return (
-                <img src={this.props.postImage} alt={this.props.postImage} className="post-image" />
-            );
-        }
-        else {
-            return (
+        let content = [];
+        if (this.props.postText) {
+            content.push(
                 <div className="post-text">
                     {this.props.postText}
                 </div>
             );
         }
+        if (this.props.postImage) {
+            content.push(<img src={this.props.postImage} alt={this.props.postImage} className="post-image" />);
+        }
+        
+        if (content.length === 0) {
+            content.push(<div/>)
+        }
+
+        return content;
     };
 
     getComments = () => {
@@ -77,11 +107,11 @@ class Post extends Component {
                 </div>
                 <div className="post-horizal-line" />
                 <div className="post-footer row">
-                    <div className="col-sm-2 text-left post-react-button">
-                        {this.props.isLiked ? <span class="glyphicon glyphicon-heart post-react"></span> : <span class="glyphicon glyphicon-heart-empty post-react"></span>}
+                    <div className="col-sm-2 text-left post-react-button" onClick={this.handleReact}>
+                        {this.state.isLiked ? <span class="glyphicon glyphicon-heart post-react"></span> : <span class="glyphicon glyphicon-heart-empty post-react"></span>}
                         {this.props.postLike}
                     </div>
-                    <div className="col-sm-2 text-left post-react-button">
+                    <div className="col-sm-2 text-left post-react-button" onClick={this.handleClick}>
                         <span class="glyphicon glyphicon-align-left post-react"></span>
                         {this.props.postComment}
                     </div>
@@ -92,8 +122,8 @@ class Post extends Component {
                     <div className="col-sm-6"></div>
                 </div>
 
-                {this.props.isTimeline ? <div /> : <div className="post-horizal-line" />}
-                {this.props.isTimeline ? <div /> : this.getComments()}
+                {this.state.isExpandComment ? <div className="post-horizal-line" /> : <div />}
+                {this.state.isExpandComment ? this.getComments() : <div />}
             </div>
         );
     }

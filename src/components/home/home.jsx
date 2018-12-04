@@ -1,11 +1,34 @@
 import React, { Component } from 'react';
 import './home.css';
+import _ from 'lodash';
+import Modal from 'react-responsive-modal';
+
+import Post from '../post/post';
+import { Link } from 'react-router-dom'
+
+import {getPostExample} from '../../helper/helper';
 
 class Home extends Component {
+    state = {
+        openFollowers: false,
+        openFollowing: false,
+    };
+
+    onOpenModal = (openModal) => {
+        const newState = _.clone(this.state);
+        newState[openModal] = true;
+        this.setState(newState);
+    };
+
+    onCloseModal = (openModal) => {
+        const newState = _.clone(this.state);
+        newState[openModal] = false;
+        this.setState(newState);
+    };
 
     render() {
         return (
-            <div className="container" style={{ height: "100vh", borderBottom: "", width: "100vw", backgroundColor: "#fafafa", alignItems: "center" }}>
+            <div className="container" style={{ minHeight: "100vh", borderBottom: "", width: "100vw", backgroundColor: "#fafafa", alignItems: "center" }}>
                 <div className="center-margin" style={{ width: "970px", height: "100%" }}>
                     <div className="row row-full">
                         <div style={{ height: "80px" }}></div>
@@ -13,7 +36,7 @@ class Home extends Component {
                     <div className="row row-full bottom-line">
                         <div className="col-sm-4 center-center" style={{ height: "400px" }}>
                             <div style={{ width: "60%", height: "auto" }}>
-                                <img className="avatar rounded fit-content" src="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg"></img>
+                                <img className="avatar rounded fit-content" src="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg" alt="avatar"></img>
                             </div>
                         </div>
                         <div className="col-sm-8 align-left" style={{ height: "100%" }}>
@@ -25,8 +48,8 @@ class Home extends Component {
                                         Kiet Tieu
                                     </div>
                                     <button type="button" className="btn btn-primary btn-follow float-left" >Follow</button>
-                                    <button type="button" className="btn btn-default btn-edit float-left">Edit Profile
-                                    </button>
+                                    <Link to="/profile" type="button" className="btn btn-default btn-edit float-left">Edit Profile
+                                    </Link>
                                 </div>
                             </div>
                             <div className="row align-left spacing-top">
@@ -44,6 +67,11 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
+
+                    {getPostExample()}
+                    {getPostExample()}
+                    {getPostExample()}
+                    {getPostExample()}
                 </div>
             </div>
         );
