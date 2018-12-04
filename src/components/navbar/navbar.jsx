@@ -10,7 +10,7 @@ class Navbar extends Component {
                     <div className="row" style={{width: "970px"}}>
                         <div className="col-sm-4">
                             <div style={{maxWidth: "75%"}}>
-                                <img src="/img/title.png" alt="Forest Network"/>
+                                <img className="fit-content" src="/img/title.png" alt="Forest Network"/>
                             </div>
                         </div>
                         <div className="col-sm-4">
