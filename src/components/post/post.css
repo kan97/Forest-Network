@@ -70,3 +70,14 @@
     width: 100%;
     padding: 16px;
 }
+
+.post-react-button  {
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.post-react-button:hover {
+    color: dodgerblue;
+}
