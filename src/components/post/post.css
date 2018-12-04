@@ -72,7 +72,7 @@
     padding: 16px;
 }
 
-.post-react-button  {
+.post-react-button {
     -webkit-transition-duration: 0.4s;
     /* Safari */
     transition-duration: 0.4s;
@@ -81,4 +81,29 @@
 
 .post-react-button:hover {
     color: dodgerblue;
+}
+
+.post-your-comment {
+    text-align: left;
+    padding: 8px 16px;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-your-comment:focus{
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid dodgerblue;
+}
+
+.post-your-comment::placeholder {
+    direction: rtl;
+    text-align: left;
+}
+
+.post-write-comment {
+    width: 100%;
+    margin: 16px 0px;
 }
