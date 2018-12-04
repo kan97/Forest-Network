@@ -10,7 +10,7 @@ class Home extends Component {
                     <div className="row row-full">
                         <div style={{ height: "80px" }}></div>
                     </div>
-                    <div className="row row-full">
+                    <div className="row row-full bottom-line">
                         <div className="col-sm-4 center-center" style={{ height: "400px" }}>
                             <div style={{ width: "60%", height: "auto" }}>
                                 <img className="avatar rounded fit-content" src="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg"></img>

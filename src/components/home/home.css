@@ -2,6 +2,10 @@
     text-align: left;
 }
 
+.bottom-line {
+    border-bottom: 1px solid rgba(0,0,0,.0975);
+}
+
 img.rounded {
     border-radius: 50%;
 }

@@ -5,7 +5,7 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className="container-fluid nav-line" style={{height: "76px", borderBottom: "", width:"100vw", backgroundColor: "#fff", alignItems:"center", position: "fixed", top: "0", zIndex: "1"}}>
+            <div className="container-fluid bottom-line" style={{height: "76px", borderBottom: "", width:"100vw", backgroundColor: "#fff", alignItems:"center", position: "fixed", top: "0", zIndex: "1"}}>
                 <div className="center-margin" style={{ maxWidth: "1600px", width:"100vw", height:"100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
                     <div className="row" style={{width: "970px"}}>
                         <div className="col-sm-4">
