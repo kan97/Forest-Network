@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom'
-import {getMainScreenExample} from './helper/helper';
+import Navbar from '../components/navbar/navbar';
+import { showContentMenus } from '../routes'
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          {getMainScreenExample()}
+          <Navbar />
+          {showContentMenus()}
         </div>
       </BrowserRouter>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './userInfo.css';
 
-class UserInfo extends Component {
+class Profile extends Component {
 
     render() {
         return (
@@ -54,4 +54,4 @@ class UserInfo extends Component {
     }
 }
 
-export default UserInfo;
+export default Profile;
