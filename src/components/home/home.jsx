@@ -17,14 +17,16 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className="col-sm-8 align-left" style={{ height: "100%" }}>
-                            <div className="row" style={{marginTop: "90px"}}></div>
+                            <div className="row" style={{ marginTop: "90px" }}></div>
                             <div className="row spacing-top">
                                 <div className="col-sm-12">
 
                                     <div className="home-name float-left">
                                         Kiet Tieu
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-follow float-left" >follow</button>
+                                    <button type="button" className="btn btn-primary btn-follow float-left" >Follow</button>
+                                    <button type="button" className="btn btn-default btn-edit float-left">Edit Profile
+                                    </button>
                                 </div>
                             </div>
                             <div className="row align-left spacing-top">

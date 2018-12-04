@@ -43,6 +43,12 @@ img.rounded {
     min-width: 120px;
 }
 
+.btn-edit {
+    vertical-align: baseline;
+    display: inline;
+    min-width: 120px;
+}
+
 .btn-following {
     
 }
