@@ -6,7 +6,7 @@ import Modal from 'react-responsive-modal';
 import Post from '../post/post';
 import { Link } from 'react-router-dom'
 
-import {getPostExample} from '../../helper/helper';
+import { getPostExample, getList } from '../../helper/helper';
 
 class Home extends Component {
     state = {
@@ -27,6 +27,27 @@ class Home extends Component {
     };
 
     render() {
+        const modalFollowers = <Modal
+            center={true}
+            onClose={() => { this.onCloseModal('openFollowers') }}
+            open={this.state.openFollowers}
+            styles={followStyles}
+            showCloseIcon={false}
+        >
+            {getList()}
+        </Modal>;
+
+        const modalFollowing = <Modal
+            center={true}
+            onClose={() => { this.onCloseModal('openFollowing') }}
+            open={this.state.openFollowing}
+            styles={followStyles}
+            showCloseIcon={false}
+        >
+            {getList()}
+        </Modal>;
+
+
         return (
             <div className="container" style={{ minHeight: "100vh", borderBottom: "", width: "100vw", backgroundColor: "#fafafa", alignItems: "center" }}>
                 <div className="center-margin" style={{ width: "970px", height: "100%" }}>
@@ -54,8 +75,8 @@ class Home extends Component {
                             </div>
                             <div className="row align-left spacing-top">
                                 <div className="col-sm-3"><span className="home-number">111</span><span>Post</span></div>
-                                <div className="col-sm-3"><span className="home-number">56</span><span>followers</span></div>
-                                <div className="col-sm-3"><span className="home-number">98</span><span>following</span></div>
+                                <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowers'); }}><span className="home-number">56</span><span>followers</span></div>
+                                <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowing'); }}><span className="home-number">98</span><span>following</span></div>
                                 <div className="col-sm-3"></div>
                             </div>
                             <div className="row align-left spacing-top">
@@ -72,10 +93,22 @@ class Home extends Component {
                     {getPostExample()}
                     {getPostExample()}
                     {getPostExample()}
+
+                    {modalFollowers}
+                    {modalFollowing}
                 </div>
             </div>
         );
     }
 }
+
+const followStyles = {
+    modal: {
+        maxWidth: "none",
+        padding: "unset",
+        background: "none",
+        boxShadow: "none"
+    }
+};
 
 export default Home;
