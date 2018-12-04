@@ -48,6 +48,7 @@ const getMainScreenExample = () => {
       <Home />
     </React.Fragment>
   );
+}
 const getList = () => {
   return (
     <FollowerList list={getFollowingList()} />

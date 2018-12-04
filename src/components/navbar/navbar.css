@@ -29,6 +29,14 @@
     min-width: 76px;
 }
 
+.no-border {
+    border: none;
+}
+
+.no-border:hover {
+    background-color: transparent;
+}
+
 .float-left {
     float: left
 }
