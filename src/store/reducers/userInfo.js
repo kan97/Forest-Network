@@ -1,5 +1,5 @@
 const initialState = {
-  fullName: 'Kiet Tieu',
+  fullName: 'Panda Team',
   post: 111,
   followers: 56,
   following: 98,

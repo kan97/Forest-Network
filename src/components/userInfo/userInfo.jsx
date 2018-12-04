@@ -11,7 +11,7 @@ class Profile extends Component {
                         <img className="info-avatar" src={this.props.userAvatar} alt={this.props.userAvatar} />
                     </div>
                     <div className="col-sm-9">
-                        <button type="button" class="btn btn-primary info-choose">Choose avatar</button>
+                        <button type="button" class="btn btn-default info-choose">Choose avatar</button>
                     </div>
                 </div>
 
@@ -48,6 +48,15 @@ class Profile extends Component {
                 <div className="row info-form">
                     <div className="col-sm-3 info-label">Bio</div>
                     <div className="col-sm-9"><textarea class="form-control" rows="5" id="bio" /></div>
+                </div>
+
+                <div className="row">
+                    <div className="col-sm-3" />
+                    <div className="col-sm-9">
+                        <button type="button" className="btn btn-primary info-button">Save</button>
+                        <button type="button" className="btn btn-defaul info-button no-border">Cancel</button>
+                    </div>
+
                 </div>
             </div>
         );

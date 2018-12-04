@@ -32,3 +32,21 @@
     float: left;
     margin: 15px 0 0 0;
 }
+
+.info-button {
+    width: 100px;
+    margin: 16px auto;
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.info-button:focus, .info-button:active{
+    outline: none !important;
+    box-shadow: none;
+}
+
+.no-border {
+    border: none;
+    background-color: transparent;
+}
