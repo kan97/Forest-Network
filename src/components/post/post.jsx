@@ -77,15 +77,19 @@ class Post extends Component {
                 </div>
                 <div className="post-horizal-line" />
                 <div className="post-footer row">
-                    <div className="col-sm-2 text-left">
+                    <div className="col-sm-2 text-left post-react-button">
                         {this.props.isLiked ? <span class="glyphicon glyphicon-heart post-react"></span> : <span class="glyphicon glyphicon-heart-empty post-react"></span>}
                         {this.props.postLike}
                     </div>
-                    <div className="col-sm-2 text-left">
+                    <div className="col-sm-2 text-left post-react-button">
                         <span class="glyphicon glyphicon-align-left post-react"></span>
                         {this.props.postComment}
                     </div>
-                    <div className="col-sm-8"></div>
+                    <div className="col-sm-2 text-left post-react-button">
+                        <span class="glyphicon glyphicon-send post-react"></span>
+                        {this.props.postShare}
+                    </div>
+                    <div className="col-sm-6"></div>
                 </div>
 
                 {this.props.isTimeline ? <div /> : <div className="post-horizal-line" />}

@@ -1,0 +1,23 @@
+.follow-container {
+    width: 100%;
+    padding: 4px 0px;
+}
+
+.follow-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-top: 5px;
+}
+
+.follow-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 8px;
+}
+
+.follow-button {
+    width: 78px;
+    font-size: 12px;
+}

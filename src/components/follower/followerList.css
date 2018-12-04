@@ -1,0 +1,11 @@
+.list-follow-container {
+    width: 100%;
+    max-width: 400px;
+    min-width: 300px;
+
+    padding: 16px;
+    margin: 16px auto;
+
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
