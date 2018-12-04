@@ -7,6 +7,7 @@ import Post from '../post/post';
 import { Link } from 'react-router-dom'
 
 import {getPostExample} from '../../helper/helper';
+import PropTypes from "prop-types";
 
 class Home extends Component {
     state = {
@@ -68,14 +69,17 @@ class Home extends Component {
                         </div>
                     </div>
 
-                    {getPostExample()}
-                    {getPostExample()}
-                    {getPostExample()}
-                    {getPostExample()}
+                    {this.props.postList.map((post, index) => 
+                        <Post key={index} post={post} />
+                    )}
                 </div>
             </div>
         );
     }
 }
+
+Home.propTypes = {
+    postList: PropTypes.array
+};
 
 export default Home;

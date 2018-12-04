@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from '../components/navbar/navbar';
 import Post from '../components/post/post';
 import UserInfo from '../components/userInfo/userInfo';
 import FollowerList from '../components/follower/followerList';
@@ -28,6 +29,7 @@ export const getPostExample = () => {
   export const getMainScreenExample = () => {
     return (
       <React.Fragment>
+        <Navbar />
         {showContentMenus()}
       </React.Fragment>
     );

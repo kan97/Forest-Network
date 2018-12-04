@@ -14,7 +14,7 @@ class Post extends Component {
 
     componentDidMount = () => {
         this.setState({
-            isLiked: this.props.isLiked
+            isLiked: this.props.post.isLiked
         });
     }
 
@@ -32,15 +32,15 @@ class Post extends Component {
 
     getPostContent = () => {
         let content = [];
-        if (this.props.postText) {
+        if (this.props.post.postText) {
             content.push(
                 <div className="post-text">
-                    {this.props.postText}
+                    {this.props.post.postText}
                 </div>
             );
         }
-        if (this.props.postImage) {
-            content.push(<img src={this.props.postImage} alt={this.props.postImage} className="post-image" />);
+        if (this.props.post.postImage) {
+            content.push(<img src={this.props.post.postImage} alt={this.props.post.postImage} className="post-image" />);
         }
 
         if (content.length === 0) {
@@ -72,7 +72,7 @@ class Post extends Component {
         return (
             <div className="col-sm-2 text-left post-react-button">
                 <span class="glyphicon glyphicon-send post-react"></span>
-                {this.props.postShare}
+                {this.props.post.postShare}
             </div>
         );
     }
@@ -82,14 +82,14 @@ class Post extends Component {
             <div className="container post-container">
                 <div className="post-header row">
                     <div className="col-sm-1">
-                        <img src={this.props.ownerAvatar} alt={this.props.ownerAvatar} className="post-owner-avatar" />
+                        <img src={this.props.post.ownerAvatar} alt={this.props.post.ownerAvatar} className="post-owner-avatar" />
                     </div>
                     <div className="col-sm-6 post-owner-name">
-                        {this.props.ownerName}
+                        {this.props.post.ownerName}
                     </div>
                     <div className="col-sm-5 post-time">
                         <span className="glyphicon glyphicon-time post-react"></span>
-                        {this.props.postTime}
+                        {this.props.post.postTime}
                     </div>
                 </div>
                 <div className="post-horizal-line" />
@@ -100,14 +100,14 @@ class Post extends Component {
                 <div className="post-footer row">
                     <div className="col-sm-2 text-left post-react-button" onClick={this.handleReact}>
                         {this.state.isLiked ? <span className="glyphicon glyphicon-heart post-react"></span> : <span className="glyphicon glyphicon-heart-empty post-react"></span>}
-                        {this.props.postLike}
+                        {this.props.post.postLike}
                     </div>
                     <div className="col-sm-2 text-left post-react-button" onClick={this.handleClick}>
                         <span className="glyphicon glyphicon-align-left post-react"></span>
-                        {this.props.postComment}
+                        {this.props.post.postComment}
                     </div>
 
-                    {this.props.isYourPost ? <div className="col-sm-2 text-left post-react-button" /> : this.showShareTimes()}
+                    {this.props.post.isYourPost ? <div className="col-sm-2 text-left post-react-button" /> : this.showShareTimes()}
                     <div className="col-sm-6"></div>
                 </div>
 

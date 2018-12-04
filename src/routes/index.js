@@ -1,14 +1,13 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Navbar from '../components/navbar/navbar';
-import Home from '../components/home/home'
+import Home from '../containers/home'
 import Profile from '../components/userInfo/userInfo'
 
 const routes = [
     {
         path: '/',
         exact: true,
-        main: () => (<Fragment><Navbar/><Home/></Fragment>)
+        main: () => <Home />
     },
     {
         path: '/profile',
