@@ -8,7 +8,7 @@ class Post extends Component {
         super(props);
         this.state = {
             isExpandComment: false,
-            isLiked: false
+            isExpandReact: false
         }
     }
 
@@ -26,7 +26,14 @@ class Post extends Component {
 
     handleReact = () => {
         this.setState({
-            isLiked: !this.state.isLiked
+            isExpandReact: !this.state.isExpandReact
+        }, () => {
+            if (this.state.isExpandReact) {
+
+            }
+            else {
+                // Re-set this post react
+            }
         });
     }
 
@@ -77,6 +84,84 @@ class Post extends Component {
         );
     }
 
+    getPostReact = () => {
+        // Non-react
+        if (this.props.post.interact === 0) {
+            return (<i class="em em-neutral_face post-react-em"></i>);
+        }
+        // Like
+        else if (this.props.post.interact === 1) {
+            return (<i class="em em-star-struck post-react-em"></i>);
+        }
+        // Love
+        else if (this.props.post.interact === 2) {
+            return (<i class="em em-blush post-react-em"></i>);
+        }
+        // Haha
+        else if (this.props.post.interact === 3) {
+            return (<i class="em em-grin post-react-em"></i>);
+        }
+        // Wow
+        else if (this.props.post.interact === 4) {
+            return (<i class="em em-astonished post-react-em"></i>);
+        }
+        // Sad
+        else if (this.props.post.interact === 5) {
+            return (<i class="em em-anguished post-react-em"></i>);
+        }
+        // Angry
+        else if (this.props.post.interact === 6) {
+            return (<i class="em em-angry post-react-em"></i>);
+        }
+    }
+
+    showReact = () => {
+        if (this.state.isExpandReact) {
+            return (
+                <div className="post-footer row">
+                    <div className="col-sm-2 text-left post-react-button post-react-selection" onClick={this.handleReact}>
+                        <i class="em em-neutral_face post-react-em"></i>
+                    </div>
+                    <div className="col-sm-2 text-left post-react-button post-react-selection" onClick={this.handleReact}>
+                        <i class="em em-star-struck post-react-em"></i>
+                    </div>
+                    <div className="col-sm-2 text-left post-react-button post-react-selection" onClick={this.handleReact}>
+                        <i class="em em-blush post-react-em"></i>
+                    </div>
+                    <div className="col-sm-2 text-left post-react-button post-react-selection" onClick={this.handleReact}>
+                        <i class="em em-grin post-react-em"></i>
+                    </div>
+                    <div className="col-sm-2 text-left post-react-button post-react-selection" onClick={this.handleReact}>
+                        <i class="em em-astonished post-react-em"></i>
+                    </div>
+                    <div className="col-sm-2 text-left post-react-button post-react-selection" onClick={this.handleReact}>
+                        <i class="em em-anguished post-react-em"></i>
+                    </div>
+                    <div className="col-sm-2 text-left post-react-button post-react-selection" onClick={this.handleReact}>
+                        <i class="em em-angry post-react-em"></i>
+                    </div>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="post-footer row">
+                    <div className="col-sm-2 text-left post-react-button" onClick={this.handleReact}>
+                        {this.getPostReact()}
+                        {this.props.post.postLike}
+                    </div>
+                    <div className="col-sm-2 text-left post-react-button" onClick={this.handleClick}>
+                        <i class="em em-left_speech_bubble post-react-em"></i>
+                        {this.props.post.postComment}
+                    </div>
+
+                    {/* {this.props.post.isYourPost ? <div className="col-sm-2 text-left post-react-button" /> : this.showShareTimes()} */}
+                    <div className="col-sm-6"></div>
+                </div>
+            );
+        }
+    }
+
     render() {
         return (
             <div className="container post-container">
@@ -97,19 +182,7 @@ class Post extends Component {
                     {this.getPostContent()}
                 </div>
                 <div className="post-horizal-line" />
-                <div className="post-footer row">
-                    <div className="col-sm-2 text-left post-react-button" onClick={this.handleReact}>
-                        {this.state.isLiked ? <span className="glyphicon glyphicon-heart post-react"></span> : <span className="glyphicon glyphicon-heart-empty post-react"></span>}
-                        {this.props.post.postLike}
-                    </div>
-                    <div className="col-sm-2 text-left post-react-button" onClick={this.handleClick}>
-                        <span className="glyphicon glyphicon-align-left post-react"></span>
-                        {this.props.post.postComment}
-                    </div>
-
-                    {this.props.post.isYourPost ? <div className="col-sm-2 text-left post-react-button" /> : this.showShareTimes()}
-                    <div className="col-sm-6"></div>
-                </div>
+                {this.showReact()}
 
                 {this.state.isExpandComment ? <div className="post-horizal-line" /> : <div />}
                 {this.state.isExpandComment ? getComments() : <div />}
