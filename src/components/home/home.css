@@ -50,7 +50,11 @@ img.rounded {
 .btn-edit {
     vertical-align: baseline;
     display: inline;
-    min-width: 120px;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    color: #286090;
+    font-weight: bolder;
 }
 
 .btn-cancel {
@@ -63,8 +67,17 @@ img.rounded {
     color: #286090;
 }
 
+.btn-edit-avat {
+    margin-left: 24px;
+}
+
 .btn-cancel:hover {
     background-color: transparent;
+}
+
+.btn-edit:hover, .btn-edit-avat:hover {
+    background-color: transparent;
+    text-decoration: underline;
 }
 
 .btn-following {

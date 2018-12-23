@@ -46,7 +46,6 @@ class Home extends Component {
                     <div className="home-name float-left">
                         {this.props.userInfo.fullName}
                     </div>
-                    <button type="button" className="btn btn-default btn-edit float-left" onClick={this.editNameOnClick} >Edit name</button>
                     <button type="button" className="btn btn-primary btn-follow float-left" >Follow</button>
                 </div>
             );
@@ -54,7 +53,7 @@ class Home extends Component {
     }
 
     editNameOnClick = () => {
-        
+
     }
 
     render() {
@@ -95,6 +94,12 @@ class Home extends Component {
                             <div className="row" style={{ marginTop: "90px" }}></div>
                             <div className="row spacing-top">
                                 {this.editName()}
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <button type="button" className="btn btn-default btn-edit float-left">Edit name</button>
+                                    <button type="button" className="btn btn-default btn-edit btn-edit-avat float-left">Edit avatar</button>
+                                </div>
                             </div>
                             <div className="row align-left spacing-top">
                                 <div className="col-sm-3"><span className="home-number">{this.props.userInfo.post}</span><span>Post</span></div>
