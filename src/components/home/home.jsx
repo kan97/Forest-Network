@@ -13,6 +13,7 @@ class Home extends Component {
     state = {
         openFollowers: false,
         openFollowing: false,
+        isEditingName: false
     };
 
     onOpenModal = (openModal) => {
@@ -27,6 +28,35 @@ class Home extends Component {
         this.setState(newState);
     };
 
+    editName = () => {
+        if (this.state.isEditingName) {
+            return (
+                <div className="col-sm-12">
+                    <div className="home-name float-left">
+                        <input type="text" className="form-control" placeholder="Input your name" value={this.props.userInfo.fullName}></input>
+                    </div>
+                    <button type="button" className="btn btn-primary btn-follow float-left" onClick={this.editNameOnClick}>Save</button>
+                    <button type="button" className="btn btn-default btn-cancel float-left" >Cancel</button>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="col-sm-12">
+                    <div className="home-name float-left">
+                        {this.props.userInfo.fullName}
+                    </div>
+                    <button type="button" className="btn btn-default btn-edit float-left" onClick={this.editNameOnClick} >Edit name</button>
+                    <button type="button" className="btn btn-primary btn-follow float-left" >Follow</button>
+                </div>
+            );
+        }
+    }
+
+    editNameOnClick = () => {
+        
+    }
+
     render() {
         const modalFollowers = <Modal
             center={true}
@@ -35,7 +65,7 @@ class Home extends Component {
             styles={followStyles}
             showCloseIcon={false}
         >
-            <FollowerList title="Followers" list={this.props.followerList}/>
+            <FollowerList title="Followers" list={this.props.followerList} />
         </Modal>;
 
         const modalFollowing = <Modal
@@ -45,7 +75,7 @@ class Home extends Component {
             styles={followStyles}
             showCloseIcon={false}
         >
-            <FollowerList title="Following" list={this.props.followingList}/>
+            <FollowerList title="Following" list={this.props.followingList} />
         </Modal>;
 
 
@@ -64,33 +94,25 @@ class Home extends Component {
                         <div className="col-sm-8 align-left" style={{ height: "100%" }}>
                             <div className="row" style={{ marginTop: "90px" }}></div>
                             <div className="row spacing-top">
-                                <div className="col-sm-12">
-
-                                    <div className="home-name float-left">
-                                        {this.props.userInfo.fullName}
-                                    </div>
-                                    <button type="button" className="btn btn-primary btn-follow float-left" >Follow</button>
-                                    <Link to="/profile" type="button" className="btn btn-default btn-edit float-left">Edit Profile
-                                    </Link>
-                                </div>
+                                {this.editName()}
                             </div>
                             <div className="row align-left spacing-top">
                                 <div className="col-sm-3"><span className="home-number">{this.props.userInfo.post}</span><span>Post</span></div>
-                                <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowers'); }}><span className="home-number">{this.props.userInfo.followers}</span><span>followers</span></div>
+
                                 <div className="col-sm-3 clickable-div" onClick={() => { this.onOpenModal('openFollowing'); }}><span className="home-number">{this.props.userInfo.following}</span><span>following</span></div>
                                 <div className="col-sm-3"></div>
                             </div>
                             <div className="row align-left spacing-top">
                                 <div className="col-sm-12">
                                     <span>
-                                    {this.props.userInfo.bio}
+                                        {this.props.userInfo.bio}
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {this.props.postList.map((post, index) => 
+                    {this.props.postList.map((post, index) =>
                         <Post key={index} post={post} />
                     )}
 
