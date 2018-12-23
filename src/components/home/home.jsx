@@ -4,6 +4,7 @@ import _ from 'lodash';
 import Modal from 'react-responsive-modal';
 
 import Post from '../post/post';
+import StatusPost from '../post/statusPost';
 import { Link } from 'react-router-dom'
 
 import PropTypes from "prop-types";
@@ -116,6 +117,11 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
+
+                    <StatusPost 
+                        ownerAvatar={this.props.userInfo.avatar} 
+                        fullName={this.props.userInfo.fullName}
+                    />
 
                     {this.props.postList.map((post, index) =>
                         <Post key={index} post={post} />
