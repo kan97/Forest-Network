@@ -1,0 +1,11 @@
+{
+    "PARSE_CONFIG": {
+        "APP_NAME": "FOREST-NETWORK",
+        "APP_ID": "f-app-id",
+        "MASTER_KEY": "b845ca5738408950c2b27da60409040565eefd57",
+        "PARSE_SERVER_JAVASCRIPT_KEY": "f-js-key",
+        "PARSE_SERVER_REST_API_KEY": "f-rest-key",
+        "PARSE_SERVER_CLIENT_KEY": "f-client-key",
+        "SERVER_URL": "http://127.0.0.1:1337/api"
+    }
+}
