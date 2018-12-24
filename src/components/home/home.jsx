@@ -9,12 +9,14 @@ import { Link } from 'react-router-dom'
 
 import PropTypes from "prop-types";
 import FollowerList from '../follower/followerList';
+import UpdateAvatar from '../update/updateAvatar';
 
 class Home extends Component {
     state = {
         openFollowers: false,
         openFollowing: false,
-        isEditingName: false
+        isEditingName: false,
+        openAvatarUpdating: false
     };
 
     onOpenModal = (openModal) => {
@@ -36,8 +38,8 @@ class Home extends Component {
                     <div className="home-name float-left">
                         <input type="text" className="form-control" placeholder="Input your name" value={this.props.userInfo.fullName}></input>
                     </div>
-                    <button type="button" className="btn btn-primary btn-follow float-left" onClick={this.editNameOnClick}>Save</button>
-                    <button type="button" className="btn btn-default btn-cancel float-left" >Cancel</button>
+                    <button type="button" className="btn btn-primary btn-follow float-left" onClick={this.saveNameOnClick}>Save</button>
+                    <button type="button" className="btn btn-default btn-cancel float-left" onClick={this.cancelEditNameOnClick}>Cancel</button>
                 </div>
             );
         }
@@ -54,7 +56,37 @@ class Home extends Component {
     }
 
     editNameOnClick = () => {
+        const newState = _.clone(this.state);
+        newState["isEditingName"] = true;
+        this.setState(newState);
+    }
 
+    cancelEditNameOnClick = () => {
+        const newState = _.clone(this.state);
+        newState["isEditingName"] = false;
+        this.setState(newState);
+    }
+
+    saveNameOnClick = () => {
+        const newState = _.clone(this.state);
+        newState["isEditingName"] = false;
+        this.setState(newState);
+    }
+
+    showEditButtons = () => {
+        if (this.state.isEditingName) {
+            return (<div className="row" />);
+        }
+        else {
+            return (
+                <div className="row">
+                    <div className="col-sm-12">
+                        <button type="button" className="btn btn-default btn-edit float-left" onClick={this.editNameOnClick} >Edit name</button>
+                        <button type="button" className="btn btn-default btn-edit btn-edit-avat float-left" onClick={() => { this.onOpenModal('openAvatarUpdating'); }}>Edit avatar</button>
+                    </div>
+                </div>
+            );
+        }
     }
 
     render() {
@@ -78,6 +110,17 @@ class Home extends Component {
             <FollowerList title="Following" list={this.props.followingList} />
         </Modal>;
 
+        const modalAvatarUpdating = <Modal
+            center={true}
+            onClose={() => { this.onCloseModal('openAvatarUpdating') }}
+            open={this.state.openAvatarUpdating}
+            styles={followStyles}
+            showCloseIcon={false}
+        >
+            <UpdateAvatar avatar={this.props.userInfo.avatar} />
+        </Modal>;
+
+
 
         return (
             <div className="container" style={{ minHeight: "100vh", borderBottom: "", width: "100vw", backgroundColor: "#fafafa", alignItems: "center" }}>
@@ -96,10 +139,10 @@ class Home extends Component {
                             <div className="row spacing-top">
                                 {this.editName()}
                             </div>
-                            <div className="row">
+                            <div className={this.state.isEditingName ? "row hidden-area" : "row"}>
                                 <div className="col-sm-12">
-                                    <button type="button" className="btn btn-default btn-edit float-left">Edit name</button>
-                                    <button type="button" className="btn btn-default btn-edit btn-edit-avat float-left">Edit avatar</button>
+                                    <button type="button" className="btn btn-default btn-edit float-left" onClick={this.editNameOnClick} >Edit name</button>
+                                    <button type="button" className="btn btn-default btn-edit btn-edit-avat float-left" onClick={() => { this.onOpenModal('openAvatarUpdating'); }}>Edit avatar</button>
                                 </div>
                             </div>
                             <div className="row align-left spacing-top">
@@ -118,8 +161,8 @@ class Home extends Component {
                         </div>
                     </div>
 
-                    <StatusPost 
-                        ownerAvatar={this.props.userInfo.avatar} 
+                    <StatusPost
+                        ownerAvatar={this.props.userInfo.avatar}
                         fullName={this.props.userInfo.fullName}
                     />
 
@@ -129,6 +172,7 @@ class Home extends Component {
 
                     {modalFollowers}
                     {modalFollowing}
+                    {modalAvatarUpdating}
                 </div>
             </div>
         );
