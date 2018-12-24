@@ -5,7 +5,7 @@ import Modal from 'react-responsive-modal';
 
 import Post from '../post/post';
 import StatusPost from '../post/statusPost';
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 import PropTypes from "prop-types";
 import FollowerList from '../follower/followerList';
