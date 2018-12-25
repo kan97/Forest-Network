@@ -146,6 +146,12 @@ class Home extends Component {
     }
   };
 
+  componentDidMount() {
+    if (!this.props.userInfo.secret) {
+      this.props.getUserInfo(UTILS.GetCurrentUser(), null);
+    }
+  }
+
   render() {
     if (!UTILS.GetCurrentUser()) {
       return <Redirect to="/login" />;
@@ -303,7 +309,8 @@ Home.propTypes = {
   postList: PropTypes.array,
   followerList: PropTypes.array,
   followingList: PropTypes.array,
-  setName: PropTypes.func
+  setName: PropTypes.func,
+  getUserInfo: PropTypes.func.isRequired,
 };
 const followStyles = {
   modal: {

@@ -2,7 +2,7 @@ import Home from "../components/home/home";
 import {
   connect
 } from "react-redux";
-import { setName } from "../store/actions/userInfo";
+import { setName, getUserInfo } from "../store/actions/userInfo";
 
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setName: name => dispatch(setName(name)),
+  getUserInfo: user => dispatch(getUserInfo(user)),
 });
 
 export default connect(
