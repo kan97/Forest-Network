@@ -13,3 +13,10 @@ export const delUserInfo = () => {
     type: Types.DEL_USER_INFO,
   }
 }
+
+export const setName = name => {
+  return {
+    type: Types.SET_NAME,
+    name,
+  }
+}

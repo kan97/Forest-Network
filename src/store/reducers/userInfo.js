@@ -39,6 +39,13 @@ const userInfo = (state = initialState, action) => {
         username: null,
       }
 
+    case Types.SET_NAME:
+      return {
+        ...state,
+        fullName: action.name,
+        sequence: state.sequence + 1,
+      }
+
     default:
       return state;
   }

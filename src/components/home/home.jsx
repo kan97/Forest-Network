@@ -90,6 +90,7 @@ class Home extends Component {
   };
 
   saveNameOnClick = () => {
+    const name = document.querySelector("#fullName").value
     const tx = {
       version: 1,
       sequence: this.props.userInfo.sequence + 1,
@@ -97,7 +98,7 @@ class Home extends Component {
       operation: "update_account",
       params: {
         key: "name",
-        value: Buffer.from(document.querySelector("#fullName").value, "utf-8")
+        value: Buffer.from(name, "utf-8")
       }
     };
     sign(tx, this.props.userInfo.secret);
@@ -107,7 +108,9 @@ class Home extends Component {
       id: "dontcare",
       method: "broadcast_tx_commit",
       params: [`${etx}`]
-    });
+    }).then(() => {
+      this.props.setName(name)
+    })
 
     const newState = _.clone(this.state);
     newState["isEditingName"] = false;
@@ -298,7 +301,7 @@ Home.propTypes = {
   postList: PropTypes.array,
   followerList: PropTypes.array,
   followingList: PropTypes.array,
-  getUserInfo: PropTypes.func
+  setName: PropTypes.func
 };
 const followStyles = {
   modal: {
