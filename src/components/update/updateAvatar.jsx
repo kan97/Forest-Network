@@ -53,7 +53,7 @@ class UpdateAvatar extends Component {
                 <div className="row update-button">
                     <div className="row">
                         <label className="btn btn-default">
-                            Choose an avatar<input type="file" onChange={this.handleBrowse} />
+                            Choose an avatar<input type="file" accept="image/*" onChange={this.handleBrowse} />
                         </label>
                     </div>
                     {this.showSaveButton()}
