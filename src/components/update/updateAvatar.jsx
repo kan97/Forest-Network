@@ -64,6 +64,7 @@ class UpdateAvatar extends Component {
               params: [`${etx}`]
             }).then(() => {
               this.props.setPicture(this.state.avatarFile);
+              this.props.callbackFromParent();
             });
           }}
         >
