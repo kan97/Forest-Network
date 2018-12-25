@@ -1,2 +1,2 @@
-export const SET_SECRET = 'SET_SECRET'
-export const DEL_SECRET = 'DEL_SECRET'
+export const GET_USER_INFO = 'GET_USER_INFO'
+export const DEL_USER_INFO = 'DEL_USER_INFO'

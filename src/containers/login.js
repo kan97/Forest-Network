@@ -3,7 +3,7 @@ import LoginPre from "../components/login/login";
 import UTILS from "../helper/UTILS";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { setSecret } from "../store/actions/userInfo";
+import { getUserInfo } from "../store/actions/userInfo";
 const { Keypair } = require('stellar-base');
 
 class Login extends Component {
@@ -15,7 +15,7 @@ class Login extends Component {
     UTILS.ParseLogIn(Keypair.fromSecret(key).publicKey())
       .then(result => {
         this.setState({ isLogin: true });
-        this.props.setSecret(key)
+        this.props.getUserInfo(UTILS.GetCurrentUser(), key)
       })
       .catch(err => {
         console.log(err);
@@ -35,7 +35,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setSecret: secret => dispatch(setSecret(secret)),
+  getUserInfo: (user, secret) => dispatch(getUserInfo(user, secret)),
 });
 
 export default connect(

@@ -1,14 +1,15 @@
 import * as Types from '../constants/actionTypes'
 
-export const setSecret = secret => {
+export const getUserInfo = (user, secret) => {
   return {
-    type: Types.SET_SECRET,
-    secret
+    type: Types.GET_USER_INFO,
+    user,
+    secret,
   }
 }
 
-export const delSecret = () => {
+export const delUserInfo = () => {
   return {
-    type: Types.DEL_SECRET,
+    type: Types.DEL_USER_INFO,
   }
 }

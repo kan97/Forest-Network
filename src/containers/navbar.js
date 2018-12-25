@@ -3,7 +3,7 @@ import NavbarPre from "../components/navbar/navbar";
 import UTILS from "../helper/UTILS";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
-import { delSecret } from "../store/actions/userInfo";
+import { delUserInfo } from "../store/actions/userInfo";
 
 class Navbar extends Component {
   state = {
@@ -13,7 +13,7 @@ class Navbar extends Component {
   myCallback = () => {
     UTILS.ParseLogOut().then(() => {
       this.setState({ isLogout: true });
-      this.props.delSecret()
+      this.props.delUserInfo()
     });
   };
 
@@ -28,7 +28,7 @@ class Navbar extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  delSecret: secret => dispatch(delSecret()),
+  delUserInfo: secret => dispatch(delUserInfo()),
 });
 
 export default withRouter(connect(
