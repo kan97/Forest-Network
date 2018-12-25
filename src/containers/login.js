@@ -20,7 +20,7 @@ class Login extends Component {
   };
 
   render() {
-    if (UTILS.ParseUserBecome()) {
+    if (UTILS.GetCurrentUser()) {
       return <Redirect to="/" />
     }
     return (

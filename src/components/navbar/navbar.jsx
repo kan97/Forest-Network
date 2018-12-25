@@ -18,8 +18,10 @@ class Navbar extends Component {
                             <input type="text" className="form-control" placeholder="Search 🔎"></input>
                         </div>
                         <div className="col-sm-4">
-                            <button type="button" className="btn btn-default right-button no-border" style={{color: "#286090"}}>Sign Up</button>
-                            <Link to="/login" type="button" className="btn btn-primary right-button" >Log In</Link>
+                            {/* <button type="button" className="btn btn-default right-button no-border" style={{color: "#286090"}}>Sign Up</button> */}
+                            {!this.props.pathname.includes("login") ? (<button type="button" className="btn btn-primary right-button" onClick={() => {
+                                this.props.callbackFromParent();
+                            }}>Log Out</button>) : null}
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom'
-import Navbar from './components/navbar/navbar';
+import Navbar from './containers/navbar';
 import { showContentMenus } from './routes'
 
 class App extends Component {
