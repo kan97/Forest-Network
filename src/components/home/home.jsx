@@ -7,6 +7,8 @@ import StatusPost from "../post/statusPost";
 import PropTypes from "prop-types";
 import FollowerList from "../follower/followerList";
 import UpdateAvatar from "../update/updateAvatar";
+import { Redirect } from "react-router-dom";
+import UTILS from "../../helper/UTILS";
 
 class Home extends Component {
   state = {
@@ -121,6 +123,10 @@ class Home extends Component {
   };
 
   render() {
+    if (!UTILS.GetCurrentUser()) {
+      return <Redirect to="/login" />;
+    }
+
     const modalFollowers = (
       <Modal
         center={true}
@@ -159,7 +165,7 @@ class Home extends Component {
         styles={followStyles}
         showCloseIcon={false}
       >
-        <UpdateAvatar avatar={this.props.userInfo.avatar} />
+        <UpdateAvatar avatar={this.props.userInfo.avatar} secret={this.props.userInfo.secret} />
       </Modal>
     );
 

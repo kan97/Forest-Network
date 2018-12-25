@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import "./updateObject.css";
+import axios from "axios";
+import UTILS from "../../helper/UTILS";
+const { sign, encode } = require("../../lib/tx/index");
 
 class UpdateAvatar extends Component {
   constructor(props) {
@@ -19,7 +22,6 @@ class UpdateAvatar extends Component {
 
   handleBrowse = async e => {
     if (e.target && e.target.files && e.target.files[0]) {
-      console.log(e.target.files[0]);
       let file64 = await getBase64(e.target.files[0]);
 
       if (file64) {
@@ -34,7 +36,31 @@ class UpdateAvatar extends Component {
   showSaveButton = () => {
     if (this.state.isChooseNewAvatar) {
       return (
-        <button type="button" className="btn btn-primary save-button">
+        <button
+          type="button"
+          className="btn btn-primary save-button"
+          onClick={() => {
+            const user = UTILS.GetCurrentUser();
+            const tx = {
+              version: 1,
+              sequence: user.sequence + 1,
+              memo: Buffer.alloc(0),
+              operation: "update_account",
+              params: {
+                key: "picture",
+                value: Buffer.from(this.state.avatarFile.substr(22), "base64")
+              }
+            };
+            sign(tx, this.props.secret);
+            const etx = encode(tx).toString("base64");
+            axios.post("https://komodo.forest.network/", {
+              jsonrpc: "2.0",
+              id: "dontcare",
+              method: "broadcast_tx_commit",
+              params: [`${etx}`]
+            });
+          }}
+        >
           Update
         </button>
       );

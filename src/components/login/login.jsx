@@ -48,7 +48,6 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  isLogin: PropTypes.bool.isRequired,
   callbackFromParent: PropTypes.func.isRequired
 };
 

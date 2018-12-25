@@ -1,4 +1,7 @@
+import * as Types from '../constants/actionTypes'
+
 const initialState = {
+  secret: null,
   fullName: 'Panda Team',
   post: 111,
   followers: 56,
@@ -9,6 +12,18 @@ const initialState = {
 
 const userInfo = (state = initialState, action) => {
   switch (action.type) {
+    case Types.SET_SECRET:
+      return {
+        ...state,
+        secret: action.secret,
+      }
+
+    case Types.DEL_SECRET:
+      return {
+        ...state,
+        secret: null,
+      }
+
     default:
       return state;
   }
