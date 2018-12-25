@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import "./updateObject.css";
 import axios from "axios";
 import UTILS from "../../helper/UTILS";
+import {
+  connect
+} from "react-redux";
+import { setPicture } from "../../store/actions/userInfo";
 const { sign, encode } = require("../../lib/tx/index");
 
 class UpdateAvatar extends Component {
@@ -58,6 +62,8 @@ class UpdateAvatar extends Component {
               id: "dontcare",
               method: "broadcast_tx_commit",
               params: [`${etx}`]
+            }).then(() => {
+              this.props.setPicture(this.state.avatarFile);
             });
           }}
         >
@@ -100,7 +106,14 @@ class UpdateAvatar extends Component {
   }
 }
 
-export default UpdateAvatar;
+const mapDispatchToProps = dispatch => ({
+  setPicture: picture => dispatch(setPicture(picture)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UpdateAvatar);
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {

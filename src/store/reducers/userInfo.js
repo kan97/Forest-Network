@@ -46,6 +46,13 @@ const userInfo = (state = initialState, action) => {
         sequence: state.sequence + 1,
       }
 
+    case Types.SET_PICTURE:
+      return {
+        ...state,
+        avatar: action.picture,
+        sequence: state.sequence + 1,
+      }
+
     default:
       return state;
   }

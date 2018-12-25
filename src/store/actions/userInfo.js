@@ -20,3 +20,10 @@ export const setName = name => {
     name,
   }
 }
+
+export const setPicture = picture => {
+  return {
+    type: Types.SET_PICTURE,
+    picture,
+  }
+}

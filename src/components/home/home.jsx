@@ -150,7 +150,6 @@ class Home extends Component {
     if (!UTILS.GetCurrentUser()) {
       return <Redirect to="/login" />;
     }
-
     const modalFollowers = (
       <Modal
         center={true}
@@ -219,7 +218,7 @@ class Home extends Component {
               <div style={{ width: "60%", height: "auto" }}>
                 <img
                   className="avatar rounded fit-content"
-                  src="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg"
+                  src={this.props.userInfo.avatar}
                   alt="avatar"
                 />
               </div>
