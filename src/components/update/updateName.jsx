@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-import './updateObject.css';
+import React, { Component } from "react";
+import "./updateObject.css";
 
 class UpdateName extends Component {
-    
-    render() { 
-        return ( 
-            <div />
-         );
-    }
+  render() {
+    return <div />;
+  }
 }
- 
+
 export default UpdateName;
