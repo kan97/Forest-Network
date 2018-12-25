@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './login.css';
+import PropTypes from "prop-types";
 
 class Login extends Component {
 
@@ -13,14 +14,17 @@ class Login extends Component {
                 <div className="row login-input">
                     <div className="col-sm-4" />
                     <div className="col-sm-4">
-                        <input type="text" className="form-control" placeholder="Input your PRIVATE KEY"></input>
+                        <input id="privateKey" type="text" className="form-control" placeholder="Input your PRIVATE KEY" />
                     </div>
                     <div className="col-sm-4" />
                 </div>
                 <div className="row login-submit">
                     <div className="col-sm-4" />
                     <div className="col-sm-4">
-                        <button type="button" className="btn btn-primary">LOGIN</button>
+                        <button type="button" className="btn btn-primary" onClick={() => {
+                          const key = document.querySelector("#privateKey").value;
+                          this.props.callbackFromParent(key);
+                        }}>LOGIN</button>
                     </div>
                     <div className="col-sm-4" />
 
@@ -29,5 +33,10 @@ class Login extends Component {
         );
     }
 }
+
+Login.propTypes = {
+    isLogin: PropTypes.bool.isRequired,
+    callbackFromParent: PropTypes.func.isRequired
+};
 
 export default Login;

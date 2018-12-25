@@ -19,7 +19,7 @@ class Navbar extends Component {
                         </div>
                         <div className="col-sm-4">
                             <button type="button" className="btn btn-default right-button no-border" style={{color: "#286090"}}>Sign Up</button>
-                            <button type="button" className="btn btn-primary right-button" >Log In</button>
+                            <Link to="/login" type="button" className="btn btn-primary right-button" >Log In</Link>
                         </div>
                     </div>
                 </div>

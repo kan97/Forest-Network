@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from '../containers/home';
 import Profile from '../components/userInfo/userInfo';
+import Login from '../containers/login'
 
 const routes = [
     {
@@ -15,6 +16,11 @@ const routes = [
         main: () => <Profile 
         userAvatar="https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg"
         />
+    },
+    {
+        path: '/login',
+        exact: false,
+        main: () => <Login />
     }
 ]
 
