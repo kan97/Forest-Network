@@ -9,6 +9,8 @@ import FollowerList from "../follower/followerList";
 import UpdateAvatar from "../update/updateAvatar";
 import { Redirect } from "react-router-dom";
 import UTILS from "../../helper/UTILS";
+import axios from "axios";
+const { sign, encode } = require("../../lib/tx/index");
 
 class Home extends Component {
   state = {
@@ -37,9 +39,9 @@ class Home extends Component {
           <div className="home-name float-left">
             <input
               type="text"
+              id="fullName"
               className="form-control"
               placeholder="Input your name"
-              value={this.props.userInfo.fullName}
             />
           </div>
           <button
@@ -88,6 +90,25 @@ class Home extends Component {
   };
 
   saveNameOnClick = () => {
+    const tx = {
+      version: 1,
+      sequence: this.props.userInfo.sequence + 1,
+      memo: Buffer.alloc(0),
+      operation: "update_account",
+      params: {
+        key: "name",
+        value: Buffer.from(document.querySelector("#fullName").value, "utf-8")
+      }
+    };
+    sign(tx, this.props.userInfo.secret);
+    const etx = encode(tx).toString("base64");
+    axios.post("https://komodo.forest.network/", {
+      jsonrpc: "2.0",
+      id: "dontcare",
+      method: "broadcast_tx_commit",
+      params: [`${etx}`]
+    });
+
     const newState = _.clone(this.state);
     newState["isEditingName"] = false;
     this.setState(newState);
@@ -165,7 +186,10 @@ class Home extends Component {
         styles={followStyles}
         showCloseIcon={false}
       >
-        <UpdateAvatar avatar={this.props.userInfo.avatar} secret={this.props.userInfo.secret} />
+        <UpdateAvatar
+          avatar={this.props.userInfo.avatar}
+          secret={this.props.userInfo.secret}
+        />
       </Modal>
     );
 
@@ -273,7 +297,8 @@ Home.propTypes = {
   userInfo: PropTypes.object,
   postList: PropTypes.array,
   followerList: PropTypes.array,
-  followingList: PropTypes.array
+  followingList: PropTypes.array,
+  getUserInfo: PropTypes.func
 };
 const followStyles = {
   modal: {
