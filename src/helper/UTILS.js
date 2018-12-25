@@ -25,4 +25,8 @@ UTILS.ParseUserBecome = function(ssTk) {
     return Parse.User.become(ssTk);
 }
 
+UTILS.GetCurrentUser = function () {
+    return Parse.User.current() ? Parse.User.current().toJSON() : null;
+}
+
 module.exports = UTILS;
