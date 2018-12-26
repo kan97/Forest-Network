@@ -298,8 +298,7 @@ class Home extends Component {
           return <Post
             key={index}
             post={post}
-            ownerAvatar={this.props.userInfo.avatar}
-            ownerName={this.props.userInfo.fullName}
+            userInfo={this.props.userInfo}
           />
         });
         return list;
