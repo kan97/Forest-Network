@@ -27,7 +27,7 @@ class Post extends Component {
     });
   };
 
-  handleReact = () => {
+  handleReact = reaction => {
     this.setState(
       {
         isExpandReact: !this.state.isExpandReact
@@ -39,6 +39,27 @@ class Post extends Component {
         }
       }
     );
+    const tx = {
+      version: 1,
+      sequence: this.props.userInfo.sequence + 1,
+      memo: Buffer.alloc(0),
+      operation: "interact",
+      params: {
+        object: this.props.post.hash,
+        content: {
+          type: 2,
+          reaction: reaction,
+        }
+      }
+    };
+    sign(tx, this.props.userInfo.secret);
+    const etx = encode(tx).toString("base64");
+    axios.post("https://komodo.forest.network/", {
+      jsonrpc: "2.0",
+      id: "dontcare",
+      method: "broadcast_tx_commit",
+      params: [`${etx}`]
+    })
   };
 
   getPostContent = () => {
@@ -159,43 +180,43 @@ class Post extends Component {
         <div className="post-footer row">
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
-            onClick={this.handleReact}
+            onClick={() => this.handleReact(0)}
           >
             <i class="em em-neutral_face post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
-            onClick={this.handleReact}
+            onClick={() => this.handleReact(1)}
           >
             <i class="em em-star-struck post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
-            onClick={this.handleReact}
+            onClick={() => this.handleReact(2)}
           >
             <i class="em em-blush post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
-            onClick={this.handleReact}
+            onClick={() => this.handleReact(3)}
           >
             <i class="em em-grin post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
-            onClick={this.handleReact}
+            onClick={() => this.handleReact(4)}
           >
             <i class="em em-astonished post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
-            onClick={this.handleReact}
+            onClick={() => this.handleReact(5)}
           >
             <i class="em em-anguished post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
-            onClick={this.handleReact}
+            onClick={() => this.handleReact(6)}
           >
             <i class="em em-angry post-react-em" />
           </div>
