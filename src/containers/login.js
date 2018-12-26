@@ -15,7 +15,8 @@ class Login extends Component {
     UTILS.ParseLogIn(Keypair.fromSecret(key).publicKey())
       .then(result => {
         this.setState({ isLogin: true });
-        this.props.getUserInfo(UTILS.GetCurrentUser(), key)
+        localStorage.setItem("secret", key);
+        this.props.getUserInfo(UTILS.GetCurrentUser())
       })
       .catch(err => {
         console.log(err);
@@ -36,7 +37,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getUserInfo: (user, secret) => dispatch(getUserInfo(user, secret)),
+  getUserInfo: user => dispatch(getUserInfo(user)),
 });
 
 export default connect(

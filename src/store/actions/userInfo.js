@@ -1,10 +1,9 @@
 import * as Types from '../constants/actionTypes'
 
-export const getUserInfo = (user, secret) => {
+export const getUserInfo = user => {
   return {
     type: Types.GET_USER_INFO,
     user,
-    secret,
   }
 }
 

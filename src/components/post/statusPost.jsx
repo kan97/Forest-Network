@@ -48,7 +48,7 @@ class StatusPost extends Component {
                   }
                 }
               };
-              sign(tx, this.props.userInfo.secret);
+              sign(tx, localStorage.getItem("secret"));
               const etx = encode(tx).toString("base64");
               axios
                 .post("https://komodo.forest.network/", {

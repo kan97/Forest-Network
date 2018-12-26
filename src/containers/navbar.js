@@ -17,6 +17,7 @@ class Navbar extends Component {
         window.location.href = "/login";
       });
       this.props.delUserInfo()
+      localStorage.removeItem("secret");
     });
   };
 
@@ -46,7 +47,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  delUserInfo: secret => dispatch(delUserInfo()),
+  delUserInfo: () => dispatch(delUserInfo()),
   searchUser: list => dispatch(searchUser(list))
 });
 

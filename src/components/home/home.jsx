@@ -95,7 +95,7 @@ class Home extends Component {
         value: Buffer.from(name, "utf-8")
       }
     };
-    sign(tx, this.props.userInfo.secret);
+    sign(tx, localStorage.getItem("secret"));
     const etx = encode(tx).toString("base64");
     axios.post("https://komodo.forest.network/", {
       jsonrpc: "2.0",
@@ -231,7 +231,7 @@ class Home extends Component {
     if (this.props.userKey) {
       await UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
         console.log({ res });
-        this.props.getUserInfo(res, null);
+        this.props.getUserInfo(res);
         this.getPosts(res.objectId);
         this.getFollowingList(res.objectId);
 
@@ -248,10 +248,10 @@ class Home extends Component {
         return
       }
 
-      if (!this.props.userInfo.secret) {
+      if (!UTILS.GetCurrentUser()) {
         const userInfo = UTILS.GetCurrentUser();
         console.log({ userInfo });
-        this.props.getUserInfo(UTILS.GetCurrentUser(), null);
+        this.props.getUserInfo(UTILS.GetCurrentUser());
         this.getPosts("currentUser");
         this.getFollowingList("currentUser");
       }

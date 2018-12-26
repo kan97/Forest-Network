@@ -1,7 +1,6 @@
 import * as Types from '../constants/actionTypes'
 
 const initialState = {
-  secret: null,
   fullName: null,
   post: 0,
   following: 0,
@@ -20,7 +19,6 @@ const userInfo = (state = initialState, action) => {
     let follow = action.user.followings ? action.user.followings.length : 0
       return {
         ...state,
-        secret: action.secret,
         fullName: action.user.name,
         avatar: action.user.picture,
         sequence: action.user.sequence,
@@ -37,7 +35,6 @@ const userInfo = (state = initialState, action) => {
     case Types.DEL_USER_INFO:
       return {
         ...state,
-        secret: null,
         fullName: null,
         avatar: null,
         sequence: -1,
