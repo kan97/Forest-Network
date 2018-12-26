@@ -195,8 +195,7 @@ class Home extends Component {
         showCloseIcon={false}
       >
         <UpdateAvatar
-          avatar={this.props.userInfo.avatar}
-          secret={this.props.userInfo.secret}
+          userInfo={this.props.userInfo}
           callbackFromParent={() => {
             this.onCloseModal("openAvatarUpdating");
           }}

@@ -20,7 +20,7 @@ class UpdateAvatar extends Component {
 
   componentDidMount() {
     this.setState({
-      avatarFile: this.props.avatar
+      avatarFile: this.props.userInfo.avatar
     });
   }
 
@@ -44,10 +44,9 @@ class UpdateAvatar extends Component {
           type="button"
           className="btn btn-primary save-button"
           onClick={() => {
-            const user = UTILS.GetCurrentUser();
             const tx = {
               version: 1,
-              sequence: user.sequence + 1,
+              sequence: this.props.userInfo.sequence + 1,
               memo: Buffer.alloc(0),
               operation: "update_account",
               params: {
@@ -55,7 +54,7 @@ class UpdateAvatar extends Component {
                 value: Buffer.from(this.state.avatarFile.substr(22), "base64")
               }
             };
-            sign(tx, this.props.secret);
+            sign(tx, this.props.userInfo.secret);
             const etx = encode(tx).toString("base64");
             axios.post("https://komodo.forest.network/", {
               jsonrpc: "2.0",
