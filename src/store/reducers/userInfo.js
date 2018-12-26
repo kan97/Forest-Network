@@ -9,6 +9,7 @@ const initialState = {
   sequence: -1,
   balance: -1,
   bandwidthTime: null,
+  bandwidth: null,
   username: null,
   objectId: null,
   postNum: 0
@@ -26,6 +27,7 @@ const userInfo = (state = initialState, action) => {
         sequence: action.user.sequence,
         balance: action.user.balance,
         bandwidthTime: action.user.bandwidthTime,
+        bandwidth: action.user.bandwidth,
         username: action.user.username,
         following: follow,
         objectId: action.user.objectId,
