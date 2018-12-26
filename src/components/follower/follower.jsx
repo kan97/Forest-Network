@@ -4,7 +4,9 @@ import "./follower.css";
 class Follower extends Component {
   render() {
     return (
-      <div className="row follow-container">
+      <div className="row follow-container" onClick={()=>{
+        window.location.href = "/user/" + this.props.publicKey;
+      }}>
         <div className="col-sm-1">
           <img
             className="follow-avatar"

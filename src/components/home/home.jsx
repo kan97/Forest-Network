@@ -19,7 +19,8 @@ class Home extends Component {
     openFollowing: false,
     isEditingName: false,
     openAvatarUpdating: false,
-    hasUserKey: false
+    hasUserKey: false,
+    isFollowing: false
   };
 
   onOpenModal = openModal => {
@@ -163,10 +164,10 @@ class Home extends Component {
           </div>
           <button
             type="button"
-            className="btn btn-primary btn-follow float-left"
+            className={this.state.isFollowing ? "btn btn-default btn-follow float-left" : "btn btn-primary btn-follow float-left"}
             onClick={this.handleFollowButton}
           >
-            Follow
+            {this.state.isFollowing ? "Following" : "Follow"}
           </button>
         </div>
       );
@@ -218,10 +219,10 @@ class Home extends Component {
         "userId": userId
       }
 
-      UTILS.callAPI("getFollowingList", params).then((res)=>{
+      UTILS.callAPI("getFollowingList", params).then((res) => {
         console.log("Following list: ", res);
         this.props.getFollowing(res);
-      }).catch((err)=>{
+      }).catch((err) => {
         console.log("Error when getfollowing: ", err)
       });
     }
@@ -234,6 +235,15 @@ class Home extends Component {
         this.props.getUserInfo(res, null);
         this.getPosts(res.objectId);
         this.getFollowingList(res.objectId);
+
+        const user = UTILS.GetCurrentUser();
+        if (user && user.followings) {
+          if (user.followings.includes(res.username)) {
+            const newState = _.clone(this.state);
+            newState["isFollowing"] = true;
+            this.setState(newState);
+          }
+        }
 
         return;
       }).catch((err) => {
@@ -357,7 +367,7 @@ class Home extends Component {
                   className="col-sm-3 clickable-div"
                   onClick={this.props.userInfo.following > 0 ? () => {
                     this.onOpenModal("openFollowing");
-                  } : () => {return null} }
+                  } : () => { return null }}
                 >
                   <span className="home-number">
                     {this.props.userInfo.following}

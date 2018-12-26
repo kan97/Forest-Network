@@ -20,23 +20,7 @@ const followingList = (state = initialState, action) => {
         ...state,
         list: list
       }
-
-    case Types.SEARCH_USER:
-    console.log("Search User: ", action.list);
-      const results = action.list.map((usr)=>{
-        return {
-          name: usr.name,
-          avatar: usr.picture,
-          objectId: usr.objectId,
-          publicKey: usr.publicKey
-        }
-      });
-
-      return {
-        ...state,
-        list: results
-      }
-
+      
     default:
       return state;
   }

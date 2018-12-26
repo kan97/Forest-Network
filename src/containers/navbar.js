@@ -35,13 +35,15 @@ class Navbar extends Component {
         callbackFromParent={this.myCallback}
         loginCallback={this.myLoginCallback}
         mypageCallback={this.mypageCallback}
+        searchUser={this.props.searchUser}
+        results={this.props.results}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  results: state.followingList
+  results: state.searchUserByKeyword
 });
 
 const mapDispatchToProps = dispatch => ({
