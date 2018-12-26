@@ -1,6 +1,12 @@
 .follow-container {
     width: 100%;
     padding: 4px 0px;
+
+    cursor: pointer;
+}
+
+.follow-container:hover {
+    color: dodgerblue;
 }
 
 .follow-avatar {

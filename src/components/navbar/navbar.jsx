@@ -42,15 +42,17 @@ class Navbar extends Component {
             >
               Log Out
           </button>
+          <Link to="/mypage" >
             <button
               type="button"
               className="btn btn-primary right-button"
               onClick={() => {
-                this.props.mypageCallback();
+                
               }}
             >
               Me
-          </button>
+            </button>
+          </Link>
           </span>
         );
       }
@@ -60,25 +62,32 @@ class Navbar extends Component {
     }
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     const keyword = document.querySelector("#searchUser").value;
     console.log({keyword});
 
-    const params = {
-      "keyword": keyword
+    if (keyword && keyword.length > 0) {
+      const params = {
+        "keyword": keyword
+      }
+  
+      await UTILS.callAPI("searchUserByKeyword", params).then((res)=>{
+        console.log({res});
+        this.props.searchUser(res);
+      }).catch((err)=>{
+        console.log("Error when search keyword ", keyword, " is: ", err);
+      });
+
+      console.log("Reuslt: ", this.props.results);
+
+      if (this.props.results) {
+        this.onOpenModal("openModalResults");
+      } 
     }
-
-    UTILS.callAPI("searchUserByKeyword", params).then((res)=>{
-      console.log("Result for keyword: ", res);
-
-      this.props.searchUser(res);
-      this.onOpenModal("openModalResults");
-
-    }).catch((err)=>{
-      console.log("Error when search keyword ", keyword, " is: ", err);
-    });
   }
+
+
 
   onOpenModal = openModal => {
     const newState = _.clone(this.state);

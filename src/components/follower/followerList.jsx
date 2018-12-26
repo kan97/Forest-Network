@@ -1,19 +1,29 @@
 import React, { Component } from "react";
 import "./followerList.css";
 import Follower from "./follower";
+import UTILS from "../../helper/UTILS";
 
 class FollowerList extends Component {
   getFollowerList = () => {
     if (this.props.list) {
       console.log(this.props.list.list);
+
+      const user = UTILS.GetCurrentUser();
+      let list = [];
+
+      if (user && user.followings) {
+        list = user.followings
+      }
+
       return this.props.list.list.map((follower, index) => {
         return (
           <Follower
             key={index}
             avatar={follower.avatar}
             name={follower.name}
-            isFollowing={follower.isFollowing}
-          />
+            isFollowing={list.includes(follower.publicKey)}
+            publicKey={follower.publicKey}
+          />          
         );
       });
     } else {
