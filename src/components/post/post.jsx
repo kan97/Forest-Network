@@ -96,6 +96,7 @@ class Post extends Component {
               id="comment"
               placeholder="Your comment"
               onChange={e => this.setState({ text: e.target.value })}
+              value={this.state.text}
             />
           </div>
 

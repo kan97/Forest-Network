@@ -399,7 +399,7 @@ class Home extends Component {
                       Balance
                   </div>
                     <div className="col-sm-10">
-                      : {this.props.userInfo.balance}
+                      : {this.props.userInfo.balance} CEL
                     </div>
                   </div>
                   <div className="row align-left">
@@ -407,7 +407,7 @@ class Home extends Component {
                       Energy
                   </div>
                     <div className="col-sm-10">
-                      : {calculateEnergy(this.props.userInfo)}
+                      : {calculateEnergy(this.props.userInfo)} OXY
                     </div>
                   </div>
                 </div>
