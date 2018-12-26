@@ -12,15 +12,19 @@ class Login extends Component {
   };
 
   myCallback = key => {
-    UTILS.ParseLogIn(Keypair.fromSecret(key).publicKey())
+    try {
+      UTILS.ParseLogIn(Keypair.fromSecret(key).publicKey())
       .then(result => {
         this.setState({ isLogin: true });
         localStorage.setItem("secret", key);
         this.props.getUserInfo(UTILS.GetCurrentUser())
       })
       .catch(err => {
-        console.log(err);
+        alert("Private key doesn't exist");
       });
+    } catch (error) {
+      alert('Invalid private key')
+    }
   };
 
   render() {
