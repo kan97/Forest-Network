@@ -4,6 +4,7 @@ import UTILS from "../helper/UTILS";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { delUserInfo } from "../store/actions/userInfo";
+import { Redirect } from "react-router-dom";
 
 class Navbar extends Component {
   state = {
@@ -12,16 +13,23 @@ class Navbar extends Component {
 
   myCallback = () => {
     UTILS.ParseLogOut().then(() => {
-      this.setState({ isLogout: true });
+      this.setState({ isLogout: true }, ()=>{
+        window.location.href = "/login";
+      });
       this.props.delUserInfo()
     });
   };
+
+  myLoginCallback = () => {
+    window.location.href = "/login";
+  }
 
   render() {
     return (
       <NavbarPre
         pathname={this.props.location.pathname}
         callbackFromParent={this.myCallback}
+        loginCallback={this.myLoginCallback}
       />
     );
   }

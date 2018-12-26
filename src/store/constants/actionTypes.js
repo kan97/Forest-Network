@@ -2,3 +2,7 @@ export const GET_USER_INFO = 'GET_USER_INFO'
 export const DEL_USER_INFO = 'DEL_USER_INFO'
 export const SET_NAME = 'SET_NAME'
 export const SET_PICTURE = 'SET_PICTURE'
+
+export const GET_POST_TIMELINE = 'GET_POST_TIMELINE'
+export const GET_POST_EXPLORE = 'GET_POST_EXPLORE'
+export const GET_POST_FOLLOWING = 'GET_POST_FOLLOWING'

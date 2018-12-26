@@ -23,8 +23,9 @@ class Login extends Component {
   };
 
   render() {
-    if (UTILS.GetCurrentUser()) {
-      return <Redirect to="/" />
+    const user = UTILS.GetCurrentUser();
+    if (user) {
+      return <Redirect to={"/mypage/"} />
     }
     return (
       <LoginPre

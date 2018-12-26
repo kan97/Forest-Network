@@ -7,6 +7,16 @@ const routes = [
     {
         path: '/',
         exact: true,
+        main: () => <Login />
+    },
+    {
+        path: '/user/:username',
+        exact: true,
+        main: ({match}) => <Home userKey={match.params.username} />
+    },
+    {
+        path: '/mypage',
+        exact: true,
         main: () => <Home />
     },
     {

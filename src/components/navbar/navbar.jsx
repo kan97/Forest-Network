@@ -1,8 +1,44 @@
 import React, { Component } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
+import UTILS from "../../helper/UTILS";
 
 class Navbar extends Component {
+  showButtonOnNavi = () => {
+    const user = UTILS.GetCurrentUser();
+    if (!user && !this.props.pathname.includes("login")) {
+      return (
+        <button
+          type="button"
+          className="btn btn-primary right-button"
+          onClick={() => {
+            this.props.loginCallback();
+          }}
+        >
+          Log In
+        </button>
+      );
+    }
+    else {
+      if (!this.props.pathname.includes("login")) {
+        return (
+          <button
+            type="button"
+            className="btn btn-primary right-button"
+            onClick={() => {
+              this.props.callbackFromParent();
+            }}
+          >
+            Log Out
+          </button>
+        );
+      }
+      else {
+        return null;
+      }
+    }
+  }
+
   render() {
     return (
       <div
@@ -49,18 +85,7 @@ class Navbar extends Component {
               />
             </div>
             <div className="col-sm-4">
-              {/* <button type="button" className="btn btn-default right-button no-border" style={{color: "#286090"}}>Sign Up</button> */}
-              {!this.props.pathname.includes("login") ? (
-                <button
-                  type="button"
-                  className="btn btn-primary right-button"
-                  onClick={() => {
-                    this.props.callbackFromParent();
-                  }}
-                >
-                  Log Out
-                </button>
-              ) : null}
+              {this.showButtonOnNavi()}
             </div>
           </div>
         </div>

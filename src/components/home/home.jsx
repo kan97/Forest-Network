@@ -17,7 +17,8 @@ class Home extends Component {
     openFollowers: false,
     openFollowing: false,
     isEditingName: false,
-    openAvatarUpdating: false
+    openAvatarUpdating: false,
+    hasUserKey: false
   };
 
   onOpenModal = openModal => {
@@ -111,7 +112,7 @@ class Home extends Component {
 
   showEditButtons = () => {
     const user = UTILS.GetCurrentUser();
-    if (user.username === this.props.userInfo.username) {
+    if (user && user.username === this.props.userInfo.username) {
       return (
         <div
           className={this.state.isEditingName ? "row hidden-area" : "row"}
@@ -146,7 +147,7 @@ class Home extends Component {
 
   showFollowButton = () => {
     const user = UTILS.GetCurrentUser();
-    if (user.username === this.props.userInfo.username) {
+    if (!user || user.username === this.props.userInfo.username) {
       return (
         <div className="home-name float-left">
           {this.props.userInfo.fullName}
@@ -162,6 +163,7 @@ class Home extends Component {
           <button
             type="button"
             className="btn btn-primary btn-follow float-left"
+            onClick={this.handleFollowButton}
           >
             Follow
           </button>
@@ -170,20 +172,75 @@ class Home extends Component {
     }
   }
 
-  componentDidMount() {
+  handleFollowButton = () => {
     if (!UTILS.GetCurrentUser()) {
-      return
+      return <Redirect to="/login" />;
     }
+  }
 
-    if (!this.props.userInfo.secret) {
-      this.props.getUserInfo(UTILS.GetCurrentUser(), null);
+  showWriteAPost = () => {
+    const user = UTILS.GetCurrentUser();
+    if (user && user.username === this.props.userInfo.username) {
+      return (
+        <StatusPost userInfo={this.props.userInfo} />
+      );
+    }
+    else {
+      return (
+        <div />
+      );
+    }
+  }
+
+  getPosts = (userKey) => {
+    if (userKey) {
+      const params = userKey === "currentUser" ? null : {
+        "userId": userKey
+      }
+
+      console.log(params);
+      UTILS.callAPI("getPostsTimeline", params).then((res) => {
+        console.log("Posts: ", res);
+        this.props.getPostTimeline(res);
+      }).catch((err) => {
+        console.log("Get posts timeline error by: ", err);
+      });
+    }
+    else {
+
+    }
+  }
+
+  async componentDidMount() {
+    if (this.props.userKey) {
+      await UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
+        console.log({ res });
+        this.props.getUserInfo(res, null);
+        this.getPosts(res.objectId);
+
+        return;
+      }).catch((err) => {
+        console.log("Error when visit user [", this.props.userKey, "] is: ", err);
+        window.location.href = "/login";
+      });
+    }
+    else {
+
+      if (!UTILS.GetCurrentUser()) {
+        window.location.href = "/login";
+        return
+      }
+
+      if (!this.props.userInfo.secret) {
+        const userInfo = UTILS.GetCurrentUser();
+        console.log({ userInfo });
+        this.props.getUserInfo(UTILS.GetCurrentUser(), null);
+        this.getPosts("currentUser");
+      }
     }
   }
 
   render() {
-    if (!UTILS.GetCurrentUser()) {
-      return <Redirect to="/login" />;
-    }
     const modalFollowers = (
       <Modal
         center={true}
@@ -231,6 +288,29 @@ class Home extends Component {
       </Modal>
     );
 
+    const showPosts = () => {
+      console.log(this.props.postList);
+      if (this.props.postList && this.props.postList.postList) {
+        const list = this.props.postList.postList.map((post, index) => {
+          return <Post
+            key={index}
+            post={post}
+            ownerAvatar={this.props.userInfo.avatar}
+            ownerName={this.props.userInfo.fullName}
+          />
+        });
+        return list;
+
+      }
+      else {
+        return (
+          <div className="row center-center bold-text spacing-top">
+            No post recently!
+          </div>
+        );
+      }
+    }
+
     return (
       <div
         className="container"
@@ -268,7 +348,7 @@ class Home extends Component {
                   <span className="home-number">
                     {this.props.userInfo.post}
                   </span>
-                  <span>Post</span>
+                  <span>posts</span>
                 </div>
 
                 <div
@@ -323,11 +403,9 @@ class Home extends Component {
             </div>
           </div>
 
-          <StatusPost userInfo={this.props.userInfo} />
+          {this.showWriteAPost()}
 
-          {this.props.postList.map((post, index) => (
-            <Post key={index} post={post} />
-          ))}
+          {showPosts()}
 
           {modalFollowers}
           {modalFollowing}
@@ -345,6 +423,7 @@ Home.propTypes = {
   followingList: PropTypes.array,
   setName: PropTypes.func,
   getUserInfo: PropTypes.func.isRequired,
+  getPostTimeline: PropTypes.func.isRequired
 };
 const followStyles = {
   modal: {

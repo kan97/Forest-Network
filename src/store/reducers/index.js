@@ -1,14 +1,14 @@
 import {
   combineReducers
 } from 'redux'
-import postList from './postList'
+import post from './postList'
 import userInfo from './userInfo'
 import followerList from './followerList'
 import followingList from './followingList'
 
 const rootReducer = combineReducers({
   userInfo,
-  postList,
+  post,
   followerList,
   followingList
 })

@@ -1,100 +1,44 @@
+import * as Types from '../constants/actionTypes'
+
 const initialState = {
   postList: [{
-      ownerAvatar: "https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg",
-      ownerName: "Panda Team",
-      postTime: "02/12/2018",
-      postLike: 12,
-      postComment: 3,
-      postShare: 7,
+      ownerAvatar: "https://mobile-event-app.com/wp-content/themes/uplift/images/default-thumb.png",
+      ownerName: "",
+      postTime: "",
+      postLike: 0,
+      postComment: 0,
+      postShare: 0,
       postImage: null,
-      postText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      postText: "",
       isLiked: false,
       isYourPost: true,
-      interact: 0
-    },
-    {
-      ownerAvatar: "https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg",
-      ownerName: "Panda Team",
-      postTime: "02/12/2018",
-      postLike: 12,
-      postComment: 3,
-      postShare: 7,
-      postImage: null,
-      postText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      isLiked: false,
-      isYourPost: true,
-      interact: 1
-    },
-    {
-      ownerAvatar: "https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg",
-      ownerName: "Panda Team",
-      postTime: "02/12/2018",
-      postLike: 120,
-      postComment: 3,
-      postShare: 7,
-      postImage: null,
-      postText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      isLiked: false,
-      isYourPost: true,
-      interact: 2
-    },
-    {
-      ownerAvatar: "https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg",
-      ownerName: "Panda Team",
-      postTime: "02/12/2018",
-      postLike: 12,
-      postComment: 3,
-      postShare: 7,
-      postImage: null,
-      postText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      isLiked: false,
-      isYourPost: true,
-      interact: 3
-    },
-    {
-      ownerAvatar: "https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg",
-      ownerName: "Panda Team",
-      postTime: "01/12/2018",
-      postLike: 12,
-      postComment: 3,
-      postShare: 7,
-      postImage: `https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg`,
-      postText: null,
-      isLiked: false,
-      isYourPost: true,
-      interact: 4
-    },
-    {
-      ownerAvatar: "https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg",
-      ownerName: "Panda Team",
-      postTime: "30/11/2018",
-      postLike: 12,
-      postComment: 3,
-      postShare: 7,
-      postImage: `https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg`,
-      postText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      isLiked: false,
-      isYourPost: true,
-      interact: 5
-    },
-    {
-      ownerAvatar: "https://www.muralswallpaper.com/app/uploads/aquamarine-patterned-ombre-wall-mural-square-400x400.jpg",
-      ownerName: "Panda Team",
-      postTime: "02/12/2018",
-      postLike: 12,
-      postComment: 3,
-      postShare: 7,
-      postImage: null,
-      postText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      isLiked: false,
-      isYourPost: true,
-      interact: 6
+      interact: 0,
+      comments: []
     }
   ]
 }
 
 const post = (state = initialState, action) => {
   switch (action.type) {
+    case Types.GET_POST_TIMELINE:
+      const posts = action.post.map((e)=>{
+        let comments = e.comments ? e.comments.length : 0;
+        let reacts = e.reactions ? e.reactions.length : 0;
+        let text = e.text ? e.text : "";
+        return {
+          postText: text,
+          postImage: null,
+          postComment: comments,
+          postLike: reacts,
+          interact: e.myReaction ? e.myReaction : 0,
+          comments: e.comments
+        }
+      });
+      
+      return {
+        ...state,
+        postList: posts
+      }
     default:
       return state;
   }

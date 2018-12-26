@@ -188,13 +188,32 @@ class Post extends Component {
             <i class="em em-left_speech_bubble post-react-em" />
             {this.props.post.postComment}
           </div>
-
-          {/* {this.props.post.isYourPost ? <div className="col-sm-2 text-left post-react-button" /> : this.showShareTimes()} */}
           <div className="col-sm-6" />
         </div>
       );
     }
   };
+
+  showComments = () => {
+    if (this.props.post.comments) {
+      const list = this.props.post.comments.map((cmt, idx) => {
+        console.log("Time: ", cmt.time);
+        return <Comment
+        ownerAvatar={cmt.user.picture}
+        ownerName={cmt.user.name}
+        comment={cmt.comment}
+        commentTime={cmt.createdAt}
+      />
+      })
+
+      return <div className="row post-comment">{list}</div>;
+    }
+    else {
+      return <div className="row post-comment">
+      Write your first comment!
+      </div>;
+    }
+  }
 
   render() {
     return (
@@ -202,13 +221,13 @@ class Post extends Component {
         <div className="post-header row">
           <div className="col-sm-1">
             <img
-              src={this.props.post.ownerAvatar}
-              alt={this.props.post.ownerAvatar}
+              src={this.props.ownerAvatar}
+              alt={this.props.ownerAvatar}
               className="post-owner-avatar"
             />
           </div>
           <div className="col-sm-6 post-owner-name">
-            {this.props.post.ownerName}
+            {this.props.ownerName}
           </div>
           <div className="col-sm-5 post-time">
             <span className="glyphicon glyphicon-time post-react" />
@@ -225,7 +244,7 @@ class Post extends Component {
         ) : (
           <div />
         )}
-        {this.state.isExpandComment ? getComments() : <div />}
+        {this.state.isExpandComment ? this.showComments() : <div />}
         {this.state.isExpandComment ? this.showCommentText() : <div />}
       </div>
     );
