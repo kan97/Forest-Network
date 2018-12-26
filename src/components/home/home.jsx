@@ -10,6 +10,7 @@ import UpdateAvatar from "../update/updateAvatar";
 import { Redirect } from "react-router-dom";
 import UTILS from "../../helper/UTILS";
 import axios from "axios";
+import { calculateEnergy } from "../../helper/calculateEnergy";
 const { sign, encode } = require("../../lib/tx/index");
 
 class Home extends Component {
@@ -409,7 +410,7 @@ class Home extends Component {
                       Energy
                   </div>
                     <div className="col-sm-10">
-                      : - - -
+                      : {calculateEnergy(this.props.userInfo)}
                     </div>
                   </div>
                 </div>
