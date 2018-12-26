@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./post.css";
 import Comment from "../comment/comment";
 import moment from "moment";
+import axios from "axios";
+const { sign, encode } = require("../../lib/tx/index");
 
 class Post extends Component {
   constructor(props) {
@@ -75,7 +77,30 @@ class Post extends Component {
           </div>
 
           <div className="col-sm-2">
-            <button type="button" className="btn btn-primary">
+            <button type="button" className="btn btn-primary" onClick={() => {
+              const text = document.querySelector("#comment").value
+              const tx = {
+                version: 1,
+                sequence: this.props.userInfo.sequence + 1,
+                memo: Buffer.alloc(0),
+                operation: "interact",
+                params: {
+                  object: this.props.post.hash,
+                  content: {
+                    type: 1,
+                    text: text,
+                  }
+                }
+              };
+              sign(tx, this.props.userInfo.secret);
+              const etx = encode(tx).toString("base64");
+              axios.post("https://komodo.forest.network/", {
+                jsonrpc: "2.0",
+                id: "dontcare",
+                method: "broadcast_tx_commit",
+                params: [`${etx}`]
+              })
+            }}>
               Send
             </button>
           </div>
@@ -222,13 +247,13 @@ class Post extends Component {
         <div className="post-header row">
           <div className="col-sm-1">
             <img
-              src={this.props.ownerAvatar}
-              alt={this.props.ownerAvatar}
+              src={this.props.userInfo.avatar}
+              alt={this.props.userInfo.avatar}
               className="post-owner-avatar"
             />
           </div>
           <div className="col-sm-7 post-owner-name">
-            {this.props.ownerName}
+            {this.props.userInfo.fullName}
           </div>
           <div className="col-sm-4 post-time">
             <span className="glyphicon glyphicon-time post-react" />
