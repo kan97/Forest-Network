@@ -4,14 +4,14 @@ const initialState = {
   secret: null,
   fullName: null,
   post: 0,
-  followers: 0,
   following: 0,
   avatar: "https://mobile-event-app.com/wp-content/themes/uplift/images/default-thumb.png",
   sequence: -1,
   balance: -1,
   bandwidthTime: null,
   username: null,
-  objectId: null
+  objectId: null,
+  postNum: 0
 }
 
 const userInfo = (state = initialState, action) => {
@@ -28,7 +28,8 @@ const userInfo = (state = initialState, action) => {
         bandwidthTime: action.user.bandwidthTime,
         username: action.user.username,
         following: follow,
-        objectId: action.user.objectId
+        objectId: action.user.objectId,
+        postNum: action.user.post ? action.user.post : 0
       }
 
     case Types.DEL_USER_INFO:

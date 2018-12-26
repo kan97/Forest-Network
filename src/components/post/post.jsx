@@ -253,35 +253,3 @@ class Post extends Component {
 }
 
 export default Post;
-
-const getComments = () => {
-  let comments = [];
-  comments.push(
-    <Comment
-      ownerAvatar="https://www.muralswallpaper.com/app/uploads/blue-grunge-ombre-design-square-1-400x400.jpg"
-      ownerName="Tiêu Trí Kiệt"
-      comment="Good!"
-      commentTime="03/12/2018"
-    />
-  );
-
-  comments.push(
-    <Comment
-      ownerAvatar="https://www.muralswallpaper.com/app/uploads/Aztec-Diamonds-Pattern-Wallpaper-Mural-Square-400x400.jpg"
-      ownerName="Kiệt Tiêu"
-      comment="This is perfect comment !?"
-      commentTime="02/12/2018"
-    />
-  );
-
-  comments.push(
-    <Comment
-      ownerAvatar="http://yatheatre.com/wp-content/uploads/2018/08/Replaceable-The-Office-Wallpaper-Hd-005-art-deco-4876776952521969087-wallsneedlove-.jpg"
-      ownerName="Tiêu"
-      comment="That right!"
-      commentTime="01/12/2018"
-    />
-  );
-
-  return <div className="row post-comment">{comments}</div>;
-};

@@ -213,10 +213,14 @@ class Home extends Component {
 
   getFollowingList = (userId) => {
     if (userId) {
-      const params = {
+      const params = userId === "currentUser" ? null : {
         "userId": userId
       }
+
+      console.log(params);
+
       UTILS.callAPI("getFollowingList", params).then((res)=>{
+        console.log("Following list: ", res);
         this.props.getFollowing(res);
       }).catch((err)=>{
         console.log("Error when getfollowing: ", err)
@@ -230,6 +234,7 @@ class Home extends Component {
         console.log({ res });
         this.props.getUserInfo(res, null);
         this.getPosts(res.objectId);
+        this.getFollowingList(res.objectId);
 
         return;
       }).catch((err) => {
@@ -249,25 +254,12 @@ class Home extends Component {
         console.log({ userInfo });
         this.props.getUserInfo(UTILS.GetCurrentUser(), null);
         this.getPosts("currentUser");
+        this.getFollowingList("currentUser");
       }
     }
   }
 
   render() {
-    const modalFollowers = (
-      <Modal
-        center={true}
-        onClose={() => {
-          this.onCloseModal("openFollowers");
-        }}
-        open={this.state.openFollowers}
-        styles={followStyles}
-        showCloseIcon={false}
-      >
-        <FollowerList title="Followers" list={this.props.followerList} />
-      </Modal>
-    );
-
     const modalFollowing = (
       <Modal
         center={true}
@@ -277,7 +269,6 @@ class Home extends Component {
         open={this.state.openFollowing}
         styles={followStyles}
         showCloseIcon={false}
-        onEntered={this.getFollowingList()}
       >
         <FollowerList title="Following" list={this.props.followingList} />
       </Modal>
@@ -367,9 +358,9 @@ class Home extends Component {
 
                 <div
                   className="col-sm-3 clickable-div"
-                  onClick={() => {
+                  onClick={this.props.userInfo.following > 0 ? () => {
                     this.onOpenModal("openFollowing");
-                  }}
+                  } : () => {return null} }
                 >
                   <span className="home-number">
                     {this.props.userInfo.following}
@@ -421,7 +412,6 @@ class Home extends Component {
 
           {showPosts()}
 
-          {modalFollowers}
           {modalFollowing}
           {modalAvatarUpdating}
         </div>

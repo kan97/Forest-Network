@@ -24,12 +24,17 @@ class Navbar extends Component {
     window.location.href = "/login";
   }
 
+  mypageCallback = () => {
+    window.location.href = "/mypage";
+  }
+
   render() {
     return (
       <NavbarPre
         pathname={this.props.location.pathname}
         callbackFromParent={this.myCallback}
         loginCallback={this.myLoginCallback}
+        mypageCallback={this.mypageCallback}
       />
     );
   }

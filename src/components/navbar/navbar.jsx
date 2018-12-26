@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import UTILS from "../../helper/UTILS";
 
 class Navbar extends Component {
+  
   showButtonOnNavi = () => {
     const user = UTILS.GetCurrentUser();
     if (!user && !this.props.pathname.includes("login")) {
@@ -22,15 +23,27 @@ class Navbar extends Component {
     else {
       if (!this.props.pathname.includes("login")) {
         return (
-          <button
-            type="button"
-            className="btn btn-primary right-button"
-            onClick={() => {
-              this.props.callbackFromParent();
-            }}
-          >
-            Log Out
+          <span>
+            <button
+              type="button"
+              className="btn btn-default right-button no-border"
+              style={{ marginLeft: "8px" }}
+              onClick={() => {
+                this.props.callbackFromParent();
+              }}
+            >
+              Log Out
           </button>
+            <button
+              type="button"
+              className="btn btn-primary right-button"
+              onClick={() => {
+                this.props.mypageCallback();
+              }}
+            >
+              Me
+          </button>
+          </span>
         );
       }
       else {
@@ -38,6 +51,8 @@ class Navbar extends Component {
       }
     }
   }
+
+
 
   render() {
     return (
@@ -78,11 +93,13 @@ class Navbar extends Component {
               </div>
             </div>
             <div className="col-sm-4">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search 🔎"
-              />
+              <form >
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search 🔎"
+                />
+              </form>
             </div>
             <div className="col-sm-4">
               {this.showButtonOnNavi()}

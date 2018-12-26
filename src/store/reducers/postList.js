@@ -13,7 +13,8 @@ const initialState = {
       isLiked: false,
       isYourPost: true,
       interact: 0,
-      comments: []
+      comments: [],
+      hash: null
     }
   ]
 }
@@ -32,7 +33,8 @@ const post = (state = initialState, action) => {
           postLike: reacts,
           interact: e.myReaction ? e.myReaction : 0,
           comments: e.comments,
-          time: e.time
+          time: e.time,
+          hash: e.hash
         }
       });
       

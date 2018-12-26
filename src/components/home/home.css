@@ -13,7 +13,9 @@ img.rounded {
 .avatar {
     border-style: solid;
     border-color: #fafafa;
-    border-width: 2px;
+    border-width: 1px;
+    width: 200px;
+    height: 200px;
 }
 
 .row.row-full {
