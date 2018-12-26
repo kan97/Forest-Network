@@ -2,8 +2,16 @@ import React, { Component } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import UTILS from "../../helper/UTILS";
+import Modal from "react-responsive-modal";
+import _ from "lodash";
+import FollowerList from "../follower/followerList";
+import PropTypes from "prop-types";
 
 class Navbar extends Component {
+
+  state = {
+    openModalResults: false
+  }
   
   showButtonOnNavi = () => {
     const user = UTILS.GetCurrentUser();
@@ -52,9 +60,53 @@ class Navbar extends Component {
     }
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const keyword = document.querySelector("#searchUser").value;
+    console.log({keyword});
 
+    const params = {
+      "keyword": keyword
+    }
+
+    UTILS.callAPI("searchUserByKeyword", params).then((res)=>{
+      console.log("Result for keyword: ", res);
+
+      this.props.searchUser(res);
+      this.onOpenModal("openModalResults");
+
+    }).catch((err)=>{
+      console.log("Error when search keyword ", keyword, " is: ", err);
+    });
+  }
+
+  onOpenModal = openModal => {
+    const newState = _.clone(this.state);
+    newState[openModal] = true;
+    this.setState(newState);
+  };
+
+  onCloseModal = openModal => {
+    const newState = _.clone(this.state);
+    newState[openModal] = false;
+    this.setState(newState);
+  };
 
   render() {
+    const modalResults = (
+      <Modal
+        center={true}
+        onClose={() => {
+          this.onCloseModal("openModalResults");
+        }}
+        open={this.state.openModalResults}
+        styles={modalStyles}
+        showCloseIcon={false}
+      >
+        <FollowerList title={"Results"} list={this.props.results} />
+      </Modal>
+    );
+
     return (
       <div
         className="container-fluid bottom-line"
@@ -93,11 +145,12 @@ class Navbar extends Component {
               </div>
             </div>
             <div className="col-sm-4">
-              <form >
+              <form onSubmit={this.handleSubmit}>
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Search 🔎"
+                  id="searchUser"
                 />
               </form>
             </div>
@@ -106,9 +159,27 @@ class Navbar extends Component {
             </div>
           </div>
         </div>
+
+        {modalResults}
       </div>
     );
   }
 }
+
+
+
+const modalStyles = {
+  modal: {
+    maxWidth: "none",
+    padding: "unset",
+    background: "none",
+    boxShadow: "none"
+  }
+};
+
+Navbar.propTypes = {
+  results: PropTypes.array,  
+  searchUser: PropTypes.func.isRequired
+};
 
 export default Navbar;

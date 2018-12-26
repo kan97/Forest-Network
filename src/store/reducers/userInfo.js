@@ -11,8 +11,7 @@ const initialState = {
   bandwidthTime: null,
   bandwidth: null,
   username: null,
-  objectId: null,
-  postNum: 0
+  objectId: null
 }
 
 const userInfo = (state = initialState, action) => {
@@ -30,8 +29,9 @@ const userInfo = (state = initialState, action) => {
         bandwidth: action.user.bandwidth,
         username: action.user.username,
         following: follow,
+        followings: action.user.followings,
         objectId: action.user.objectId,
-        postNum: action.user.post ? action.user.post : 0
+        post: action.user.postNum ? action.user.postNum : 0
       }
 
     case Types.DEL_USER_INFO:

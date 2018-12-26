@@ -218,8 +218,6 @@ class Home extends Component {
         "userId": userId
       }
 
-      console.log(params);
-
       UTILS.callAPI("getFollowingList", params).then((res)=>{
         console.log("Following list: ", res);
         this.props.getFollowing(res);
@@ -295,7 +293,6 @@ class Home extends Component {
     );
 
     const showPosts = () => {
-      console.log(this.props.postList);
       if (this.props.postList && this.props.postList.postList) {
         const list = this.props.postList.postList.map((post, index) => {
           return <Post

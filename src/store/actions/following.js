@@ -6,3 +6,10 @@ export const getFollowing = (list) => {
     list
   }
 }
+
+export const searchUser = (list) => {
+  return {
+    type: Types.SEARCH_USER,
+    list
+  }
+}

@@ -4,7 +4,7 @@ import UTILS from "../helper/UTILS";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { delUserInfo } from "../store/actions/userInfo";
-import { Redirect } from "react-router-dom";
+import { searchUser } from "../store/actions/following";
 
 class Navbar extends Component {
   state = {
@@ -40,11 +40,16 @@ class Navbar extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  results: state.followingList
+});
+
 const mapDispatchToProps = dispatch => ({
   delUserInfo: secret => dispatch(delUserInfo()),
+  searchUser: list => dispatch(searchUser(list))
 });
 
 export default withRouter(connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Navbar));
