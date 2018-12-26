@@ -10,7 +10,8 @@ class Post extends Component {
     super(props);
     this.state = {
       isExpandComment: false,
-      isExpandReact: false
+      isExpandReact: false,
+      text: '',
     };
   }
 
@@ -73,12 +74,13 @@ class Post extends Component {
               class="form-control post-your-comment"
               id="comment"
               placeholder="Your comment"
+              onChange={e => this.setState({ text: e.target.value })}
             />
           </div>
 
           <div className="col-sm-2">
             <button type="button" className="btn btn-primary" onClick={() => {
-              const text = document.querySelector("#comment").value
+              const text = this.state.text
               const tx = {
                 version: 1,
                 sequence: this.props.userInfo.sequence + 1,
@@ -99,6 +101,8 @@ class Post extends Component {
                 id: "dontcare",
                 method: "broadcast_tx_commit",
                 params: [`${etx}`]
+              }).then(() => {
+                this.setState({ text: '' })
               })
             }}>
               Send
