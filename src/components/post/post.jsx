@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./post.css";
 import Comment from "../comment/comment";
+import moment from "moment";
 
 class Post extends Component {
   constructor(props) {
@@ -197,20 +198,20 @@ class Post extends Component {
   showComments = () => {
     if (this.props.post.comments) {
       const list = this.props.post.comments.map((cmt, idx) => {
-        console.log("Time: ", cmt.time);
         return <Comment
-        ownerAvatar={cmt.user.picture}
-        ownerName={cmt.user.name}
-        comment={cmt.comment}
-        commentTime={cmt.createdAt}
-      />
+          key={idx}
+          ownerAvatar={cmt.user.picture}
+          ownerName={cmt.user.name}
+          comment={cmt.comment}
+          commentTime={moment(cmt.time).fromNow()}
+        />
       })
 
       return <div className="row post-comment">{list}</div>;
     }
     else {
       return <div className="row post-comment">
-      Write your first comment!
+        Write your first comment!
       </div>;
     }
   }
@@ -226,12 +227,12 @@ class Post extends Component {
               className="post-owner-avatar"
             />
           </div>
-          <div className="col-sm-6 post-owner-name">
+          <div className="col-sm-7 post-owner-name">
             {this.props.ownerName}
           </div>
-          <div className="col-sm-5 post-time">
+          <div className="col-sm-4 post-time">
             <span className="glyphicon glyphicon-time post-react" />
-            {this.props.post.postTime}
+            {moment(this.props.post.time).fromNow()}
           </div>
         </div>
         <div className="post-horizal-line" />
@@ -242,8 +243,8 @@ class Post extends Component {
         {this.state.isExpandComment ? (
           <div className="post-horizal-line" />
         ) : (
-          <div />
-        )}
+            <div />
+          )}
         {this.state.isExpandComment ? this.showComments() : <div />}
         {this.state.isExpandComment ? this.showCommentText() : <div />}
       </div>

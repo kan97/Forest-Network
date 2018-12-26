@@ -211,6 +211,19 @@ class Home extends Component {
     }
   }
 
+  getFollowingList = (userId) => {
+    if (userId) {
+      const params = {
+        "userId": userId
+      }
+      UTILS.callAPI("getFollowingList", params).then((res)=>{
+        this.props.getFollowing(res);
+      }).catch((err)=>{
+        console.log("Error when getfollowing: ", err)
+      });
+    }
+  }
+
   async componentDidMount() {
     if (this.props.userKey) {
       await UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
@@ -264,6 +277,7 @@ class Home extends Component {
         open={this.state.openFollowing}
         styles={followStyles}
         showCloseIcon={false}
+        onEntered={this.getFollowingList()}
       >
         <FollowerList title="Following" list={this.props.followingList} />
       </Modal>
@@ -423,7 +437,8 @@ Home.propTypes = {
   followingList: PropTypes.array,
   setName: PropTypes.func,
   getUserInfo: PropTypes.func.isRequired,
-  getPostTimeline: PropTypes.func.isRequired
+  getPostTimeline: PropTypes.func.isRequired,
+  getFollowing: PropTypes.func.isRequired
 };
 const followStyles = {
   modal: {

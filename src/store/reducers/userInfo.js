@@ -6,7 +6,7 @@ const initialState = {
   post: 0,
   followers: 0,
   following: 0,
-  avatar: null,
+  avatar: "https://mobile-event-app.com/wp-content/themes/uplift/images/default-thumb.png",
   sequence: -1,
   balance: -1,
   bandwidthTime: null,

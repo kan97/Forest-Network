@@ -31,7 +31,8 @@ const post = (state = initialState, action) => {
           postComment: comments,
           postLike: reacts,
           interact: e.myReaction ? e.myReaction : 0,
-          comments: e.comments
+          comments: e.comments,
+          time: e.time
         }
       });
       
