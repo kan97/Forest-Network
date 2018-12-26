@@ -63,15 +63,7 @@ class Home extends Component {
     } else {
       return (
         <div className="col-sm-12">
-          <div className="home-name float-left">
-            {this.props.userInfo.fullName}
-          </div>
-          <button
-            type="button"
-            className="btn btn-primary btn-follow float-left"
-          >
-            Follow
-          </button>
+          {this.showFollowButton()}
         </div>
       );
     }
@@ -118,11 +110,12 @@ class Home extends Component {
   };
 
   showEditButtons = () => {
-    if (this.state.isEditingName) {
-      return <div className="row" />;
-    } else {
+    const user = UTILS.GetCurrentUser();
+    if (user.username === this.props.userInfo.username) {
       return (
-        <div className="row">
+        <div
+          className={this.state.isEditingName ? "row hidden-area" : "row"}
+        >
           <div className="col-sm-12">
             <button
               type="button"
@@ -130,7 +123,7 @@ class Home extends Component {
               onClick={this.editNameOnClick}
             >
               Edit name
-            </button>
+                  </button>
             <button
               type="button"
               className="btn btn-default btn-edit btn-edit-avat float-left"
@@ -139,12 +132,43 @@ class Home extends Component {
               }}
             >
               Edit avatar
-            </button>
+                  </button>
           </div>
         </div>
       );
     }
+    else {
+      return (
+        <div />
+      );
+    }
   };
+
+  showFollowButton = () => {
+    const user = UTILS.GetCurrentUser();
+    if (user.username === this.props.userInfo.username) {
+      return (
+        <div className="home-name float-left">
+          {this.props.userInfo.fullName}
+        </div>
+      );
+    }
+    else {
+      return (
+        <div>
+          <div className="home-name float-left">
+            {this.props.userInfo.fullName}
+          </div>
+          <button
+            type="button"
+            className="btn btn-primary btn-follow float-left"
+          >
+            Follow
+          </button>
+        </div>
+      );
+    }
+  }
 
   componentDidMount() {
     if (!this.props.userInfo.secret) {
@@ -226,7 +250,7 @@ class Home extends Component {
             <div className="col-sm-4 center-center" style={{ height: "400px" }}>
               <div style={{ width: "60%", height: "auto" }}>
                 <img
-                  className="avatar rounded fit-content"
+                  className="avatar rounded user-avatar"
                   src={this.props.userInfo.avatar}
                   alt="avatar"
                 />
@@ -235,28 +259,7 @@ class Home extends Component {
             <div className="col-sm-8 align-left" style={{ height: "100%" }}>
               <div className="row" style={{ marginTop: "90px" }} />
               <div className="row spacing-top">{this.editName()}</div>
-              <div
-                className={this.state.isEditingName ? "row hidden-area" : "row"}
-              >
-                <div className="col-sm-12">
-                  <button
-                    type="button"
-                    className="btn btn-default btn-edit float-left"
-                    onClick={this.editNameOnClick}
-                  >
-                    Edit name
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-edit btn-edit-avat float-left"
-                    onClick={() => {
-                      this.onOpenModal("openAvatarUpdating");
-                    }}
-                  >
-                    Edit avatar
-                  </button>
-                </div>
-              </div>
+              {this.showEditButtons()}
               <div className="row align-left spacing-top">
                 <div className="col-sm-3">
                   <span className="home-number">
@@ -280,7 +283,38 @@ class Home extends Component {
               </div>
               <div className="row align-left spacing-top">
                 <div className="col-sm-12">
-                  <span>{this.props.userInfo.bio}</span>
+                  <div className="row align-left">
+                    <div className="col-sm-2 bold-text">
+                      Public key
+                  </div>
+                    <div className="col-sm-10">
+                      : {this.props.userInfo.username}
+                    </div>
+                  </div>
+                  <div className="row align-left">
+                    <div className="col-sm-2 bold-text">
+                      Sequence
+                  </div>
+                    <div className="col-sm-10">
+                      : {this.props.userInfo.sequence}
+                    </div>
+                  </div>
+                  <div className="row align-left">
+                    <div className="col-sm-2 bold-text">
+                      Balance
+                  </div>
+                    <div className="col-sm-10">
+                      : {this.props.userInfo.balance}
+                    </div>
+                  </div>
+                  <div className="row align-left">
+                    <div className="col-sm-2 bold-text">
+                      Energy
+                  </div>
+                    <div className="col-sm-10">
+                      : - - -
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
