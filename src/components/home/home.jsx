@@ -147,6 +147,10 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    if (!UTILS.GetCurrentUser()) {
+      return
+    }
+
     if (!this.props.userInfo.secret) {
       this.props.getUserInfo(UTILS.GetCurrentUser(), null);
     }
