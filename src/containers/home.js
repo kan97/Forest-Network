@@ -9,7 +9,6 @@ import { getFollowing } from "../store/actions/following";
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
   postList: state.post,
-  followerList: state.followerList.followerList,
   followingList: state.followingList
 });
 

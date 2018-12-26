@@ -5,8 +5,8 @@ import Follower from "./follower";
 class FollowerList extends Component {
   getFollowerList = () => {
     if (this.props.list) {
-      console.log(this.props.list.followingList);
-      return this.props.list.followingList.map((follower, index) => {
+      console.log(this.props.list.list);
+      return this.props.list.list.map((follower, index) => {
         return (
           <Follower
             key={index}
