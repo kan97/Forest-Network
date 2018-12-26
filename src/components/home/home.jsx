@@ -171,6 +171,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    if (!UTILS.GetCurrentUser()) {
+      return
+    }
+
     if (!this.props.userInfo.secret) {
       this.props.getUserInfo(UTILS.GetCurrentUser(), null);
     }
@@ -219,8 +223,7 @@ class Home extends Component {
         showCloseIcon={false}
       >
         <UpdateAvatar
-          avatar={this.props.userInfo.avatar}
-          secret={this.props.userInfo.secret}
+          userInfo={this.props.userInfo}
           callbackFromParent={() => {
             this.onCloseModal("openAvatarUpdating");
           }}
@@ -320,10 +323,7 @@ class Home extends Component {
             </div>
           </div>
 
-          <StatusPost
-            ownerAvatar={this.props.userInfo.avatar}
-            fullName={this.props.userInfo.fullName}
-          />
+          <StatusPost userInfo={this.props.userInfo} />
 
           {this.props.postList.map((post, index) => (
             <Post key={index} post={post} />
