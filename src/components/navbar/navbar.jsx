@@ -42,15 +42,17 @@ class Navbar extends Component {
             >
               Log Out
           </button>
+          <Link to="/mypage" >
             <button
               type="button"
               className="btn btn-primary right-button"
               onClick={() => {
-                this.props.mypageCallback();
+                
               }}
             >
               Me
-          </button>
+            </button>
+          </Link>
           </span>
         );
       }
