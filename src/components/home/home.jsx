@@ -286,10 +286,7 @@ class Home extends Component {
             </div>
           </div>
 
-          <StatusPost
-            ownerAvatar={this.props.userInfo.avatar}
-            fullName={this.props.userInfo.fullName}
-          />
+          <StatusPost userInfo={this.props.userInfo} />
 
           {this.props.postList.map((post, index) => (
             <Post key={index} post={post} />
