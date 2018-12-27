@@ -3,7 +3,7 @@ import {
   connect
 } from "react-redux";
 import { setName, getUserInfo } from "../store/actions/userInfo";
-import { getPostTimeline } from "../store/actions/post";
+import { getPostTimeline, delPosts } from "../store/actions/post";
 import { getFollowing } from "../store/actions/following";
 
 const mapStateToProps = state => ({
@@ -16,7 +16,8 @@ const mapDispatchToProps = dispatch => ({
   setName: name => dispatch(setName(name)),
   getUserInfo: user => dispatch(getUserInfo(user)),
   getPostTimeline: post => dispatch(getPostTimeline(post)),
-  getFollowing: list => dispatch(getFollowing(list))
+  getFollowing: list => dispatch(getFollowing(list)),
+  delPosts: () => dispatch(delPosts())
 });
 
 export default connect(

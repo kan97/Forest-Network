@@ -131,3 +131,11 @@
     width: 100%;
     margin: 16px 0px;
 }
+
+.post-follow {
+    padding: 0;
+}
+
+.post-follow button {
+    width: 100%;
+}

@@ -229,6 +229,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    this.props.delPosts();
     if (this.props.userKey) {
       console.log("asdasdasdas");
       UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
@@ -436,7 +437,8 @@ Home.propTypes = {
   setName: PropTypes.func,
   getUserInfo: PropTypes.func.isRequired,
   getPostTimeline: PropTypes.func.isRequired,
-  getFollowing: PropTypes.func.isRequired
+  getFollowing: PropTypes.func.isRequired,
+  delPosts: PropTypes.func
 };
 const followStyles = {
   modal: {

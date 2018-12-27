@@ -3,6 +3,7 @@ import "./post.css";
 import Comment from "../comment/comment";
 import moment from "moment";
 import axios from "axios";
+import UTILS from "../../helper/UTILS";
 const { sign, encode } = require("../../lib/tx/index");
 
 class Post extends Component {
@@ -12,6 +13,7 @@ class Post extends Component {
       isExpandComment: false,
       isExpandReact: false,
       text: '',
+      userInfo: null
     };
   }
 
@@ -19,6 +21,13 @@ class Post extends Component {
     this.setState({
       isLiked: this.props.post.isLiked
     });
+
+    const userInfo = UTILS.GetCurrentUser();
+    if (userInfo) {
+      this.setState({
+        userInfo: userInfo
+      });
+    }
   };
 
   handleClick = () => {
@@ -36,52 +45,37 @@ class Post extends Component {
         if (this.state.isExpandReact) {
         } else {
           // Re-set this post react
+          const userInfo = UTILS.GetCurrentUser();
+          console.log({ currentUser: this.state.userInfo, reaction });
+          if (userInfo) {
+            const tx = {
+              version: 1,
+              sequence: this.state.userInfo.sequence + 1,
+              memo: Buffer.alloc(0),
+              operation: "interact",
+              params: {
+                object: this.props.post.hash,
+                content: {
+                  type: 2,
+                  reaction: reaction,
+                }
+              }
+            };
+
+            sign(tx, localStorage.getItem("secret"));
+            const etx = encode(tx).toString("base64");
+            axios.post("https://komodo.forest.network/", {
+              jsonrpc: "2.0",
+              id: "dontcare",
+              method: "broadcast_tx_commit",
+              params: [`${etx}`]
+            })
+          }
+
         }
       }
     );
-    const tx = {
-      version: 1,
-      sequence: this.props.userInfo.sequence + 1,
-      memo: Buffer.alloc(0),
-      operation: "interact",
-      params: {
-        object: this.props.post.hash,
-        content: {
-          type: 2,
-          reaction: reaction,
-        }
-      }
-    };
-    sign(tx, localStorage.getItem("secret"));
-    const etx = encode(tx).toString("base64");
-    axios.post("https://komodo.forest.network/", {
-      jsonrpc: "2.0",
-      id: "dontcare",
-      method: "broadcast_tx_commit",
-      params: [`${etx}`]
-    })
-  };
 
-  getPostContent = () => {
-    let content = [];
-    if (this.props.post.postText) {
-      content.push(<div className="post-text">{this.props.post.postText}</div>);
-    }
-    if (this.props.post.postImage) {
-      content.push(
-        <img
-          src={this.props.post.postImage}
-          alt={this.props.post.postImage}
-          className="post-image"
-        />
-      );
-    }
-
-    if (content.length === 0) {
-      content.push(<div />);
-    }
-
-    return content;
   };
 
   showCommentText = () => {
@@ -147,31 +141,31 @@ class Post extends Component {
   getPostReact = () => {
     // Non-react
     if (this.props.post.interact === 0) {
-      return <i class="em em-neutral_face post-react-em" />;
+      return <i className="em em-neutral_face post-react-em" />;
     }
     // Like
     else if (this.props.post.interact === 1) {
-      return <i class="em em-star-struck post-react-em" />;
+      return <i className="em em-star-struck post-react-em" />;
     }
     // Love
     else if (this.props.post.interact === 2) {
-      return <i class="em em-blush post-react-em" />;
+      return <i className="em em-blush post-react-em" />;
     }
     // Haha
     else if (this.props.post.interact === 3) {
-      return <i class="em em-grin post-react-em" />;
+      return <i className="em em-grin post-react-em" />;
     }
     // Wow
     else if (this.props.post.interact === 4) {
-      return <i class="em em-astonished post-react-em" />;
+      return <i className="em em-astonished post-react-em" />;
     }
     // Sad
     else if (this.props.post.interact === 5) {
-      return <i class="em em-anguished post-react-em" />;
+      return <i className="em em-anguished post-react-em" />;
     }
     // Angry
     else if (this.props.post.interact === 6) {
-      return <i class="em em-angry post-react-em" />;
+      return <i className="em em-angry post-react-em" />;
     }
   };
 
@@ -183,43 +177,43 @@ class Post extends Component {
             className="col-sm-2 text-left post-react-button post-react-selection"
             onClick={() => this.handleReact(0)}
           >
-            <i class="em em-neutral_face post-react-em" />
+            <i className="em em-neutral_face post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
             onClick={() => this.handleReact(1)}
           >
-            <i class="em em-star-struck post-react-em" />
+            <i className="em em-star-struck post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
             onClick={() => this.handleReact(2)}
           >
-            <i class="em em-blush post-react-em" />
+            <i className="em em-blush post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
             onClick={() => this.handleReact(3)}
           >
-            <i class="em em-grin post-react-em" />
+            <i className="em em-grin post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
             onClick={() => this.handleReact(4)}
           >
-            <i class="em em-astonished post-react-em" />
+            <i className="em em-astonished post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
             onClick={() => this.handleReact(5)}
           >
-            <i class="em em-anguished post-react-em" />
+            <i className="em em-anguished post-react-em" />
           </div>
           <div
             className="col-sm-2 text-left post-react-button post-react-selection"
             onClick={() => this.handleReact(6)}
           >
-            <i class="em em-angry post-react-em" />
+            <i className="em em-angry post-react-em" />
           </div>
         </div>
       );
@@ -237,7 +231,7 @@ class Post extends Component {
             className="col-sm-2 text-left post-react-button"
             onClick={this.handleClick}
           >
-            <i class="em em-left_speech_bubble post-react-em" />
+            <i className="em em-left_speech_bubble post-react-em" />
             {this.props.post.postComment}
           </div>
           <div className="col-sm-6" />
@@ -268,26 +262,60 @@ class Post extends Component {
   }
 
   render() {
+    const fullName = () => {
+      if (this.props.post.isPostTimeline) {
+        return (
+          <div className="col-sm-7 post-owner-name">
+            {this.props.post.fullName}
+          </div>
+        );
+      }
+      else {
+        return (
+          <div className="col-sm-5 post-owner-name">
+            {this.props.post.fullName}
+          </div>
+        );
+      }
+    }
+
+    const followBtn = () => {
+      if (this.props.post.isPostTimeline) {
+        return (
+          null
+        );
+      }
+      else {
+        return (
+          <div className="col-sm-2 post-follow">
+            <button type="button" className="btn btn-primary">Follow</button>
+          </div>
+        );
+      }
+    }
+
+
     return (
       <div className="container post-container">
         <div className="post-header row">
           <div className="col-sm-1">
             <img
-              src={this.props.userInfo.avatar}
-              alt={this.props.userInfo.avatar}
+              src={this.props.post.avatar}
+              alt={this.props.post.avatar}
               className="post-owner-avatar"
             />
           </div>
-          <div className="col-sm-7 post-owner-name">
-            {this.props.userInfo.fullName}
-          </div>
+          {fullName()}
           <div className="col-sm-4 post-time">
             <span className="glyphicon glyphicon-time post-react" />
             {moment(this.props.post.time).fromNow()}
           </div>
+          {followBtn()}
         </div>
         <div className="post-horizal-line" />
-        <div className="post-content">{this.getPostContent()}</div>
+        <div className="post-content">
+          <div className="post-text">{this.props.post.postText}</div>
+        </div>
         <div className="post-horizal-line" />
         {this.showReact()}
 

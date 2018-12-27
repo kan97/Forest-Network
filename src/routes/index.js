@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from '../containers/home';
-import Login from '../containers/login'
+import Login from '../containers/login';
+import Explore from '../containers/explore';
 
 const routes = [
     {
         path: '/',
         exact: true,
-        main: () => <Login />
+        main: () => <Explore />
     },
     {
         path: '/user/:username',

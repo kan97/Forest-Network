@@ -20,3 +20,9 @@ export const getPostFollowing = (post) => {
     post
   }
 }
+
+export const delPosts = () => {
+  return {
+    type: Types.DEL_POST
+  }
+}
