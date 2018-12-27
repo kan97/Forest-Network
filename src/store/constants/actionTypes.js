@@ -10,3 +10,5 @@ export const DEL_POST = 'DEL_POST'
 
 export const GET_FOLLOWING = 'GET_FOLLOWING'
 export const SEARCH_USER = 'SEARCH_USER'
+
+export const SET_CURR_USER = 'SET_CURR_USER'
