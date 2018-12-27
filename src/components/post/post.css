@@ -139,3 +139,11 @@
 .post-follow button {
     width: 100%;
 }
+
+.post-direct {
+    cursor: pointer;
+}
+
+.post-direct:hover {
+    color: dodgerblue;
+}

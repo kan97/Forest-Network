@@ -261,18 +261,22 @@ class Post extends Component {
     }
   }
 
+  handleDirectUser = () => {
+    window.location.href = "/userid/" + this.props.post.userId;
+  }
+
   render() {
     const fullName = () => {
       if (this.props.post.isPostTimeline) {
         return (
-          <div className="col-sm-7 post-owner-name">
+          <div className="col-sm-7 post-owner-name post-direct">
             {this.props.post.fullName}
           </div>
         );
       }
       else {
         return (
-          <div className="col-sm-5 post-owner-name">
+          <div className="col-sm-5 post-owner-name post-direct" onClick={this.handleDirectUser}>
             {this.props.post.fullName}
           </div>
         );
@@ -294,11 +298,10 @@ class Post extends Component {
       }
     }
 
-
     return (
       <div className="container post-container">
         <div className="post-header row">
-          <div className="col-sm-1">
+          <div className="col-sm-1 post-direct" onClick={this.handleDirectUser}>
             <img
               src={this.props.post.avatar}
               alt={this.props.post.avatar}

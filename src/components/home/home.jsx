@@ -254,8 +254,12 @@ class Home extends Component {
   componentDidMount() {
     this.props.delPosts();
     this.props.setCurrUser(UTILS.GetCurrentUser())
-    if (this.props.userKey) {
-      UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
+    if (this.props.userId || this.props.userKey) {
+      const params = {
+        "publicKey": this.props.userKey,
+        "userId": this.props.userId
+      }
+      UTILS.callAPI("getUser", params).then((res) => {
         console.log({ res });
         this.props.getUserInfo(res);
         this.getPosts(res.objectId);
@@ -285,9 +289,17 @@ class Home extends Component {
         return
       }
       else {
-        this.props.getUserInfo(user);
-        this.getPosts("currentUser");
-        this.getFollowingList("currentUser");
+        UTILS.callAPI("getUser", { "publicKey": user.username }).then((res) => {
+          console.log({ res });
+          this.props.getUserInfo(res);
+          this.getPosts(res.objectId);
+          this.getFollowingList(res.objectId);
+  
+          return;
+        }).catch((err) => {
+          console.log("Error when fetch mypage is: ", err);
+          window.location.href = "/login";
+        });
       }
     }
   }
