@@ -13,6 +13,7 @@ import UTILS from "../../helper/UTILS";
 import axios from "axios";
 import { calculateEnergy } from "../../helper/calculateEnergy";
 const { sign, encode } = require("../../lib/tx/index");
+const base32 = require('base32.js');
 
 class Home extends Component {
   state = {
@@ -177,7 +178,7 @@ class Home extends Component {
           <button
             type="button"
             className={this.state.isFollowing ? "btn btn-default btn-follow float-left" : "btn btn-primary btn-follow float-left"}
-            onClick={this.handleFollowButton}
+            onClick={() => this.handleFollowButton(this.state.isFollowing)}
           >
             {this.state.isFollowing ? "Following" : "Follow"}
           </button>
@@ -197,10 +198,47 @@ class Home extends Component {
     }
   }
 
-  handleFollowButton = () => {
-    if (!UTILS.GetCurrentUser()) {
+  handleFollowButton = isFollowing => {
+    const currUser = UTILS.GetCurrentUser()
+    if (!currUser) {
       return <Redirect to="/login" />;
     }
+    const followings = currUser.followings
+    if (isFollowing) {
+      const index = followings.indexOf(this.props.userInfo.username)
+      followings.splice(index, 1)
+    }
+    else {
+      followings.push(this.props.userInfo.username)
+    }
+    const addresses = followings.map(e => 
+      Buffer.from(base32.decode(e))
+    )
+console.log(currUser);
+
+    const tx = {
+      version: 1,
+      sequence: currUser.sequence + 1,
+      memo: Buffer.alloc(0),
+      operation: "update_account",
+      params: {
+        key: "followings",
+        value: {
+          addresses: addresses
+        }
+      }
+    };
+    sign(tx, localStorage.getItem("secret"));
+    const etx = encode(tx).toString("base64");
+    axios.post("https://komodo.forest.network/", {
+      jsonrpc: "2.0",
+      id: "dontcare",
+      method: "broadcast_tx_commit",
+      params: [`${etx}`]
+    }).then(() => {
+      console.log('success');
+      
+    })
   }
 
   showWriteAPost = () => {
