@@ -250,8 +250,8 @@ class Post extends Component {
     if (!reactors) {
       return <div></div>;
     }
-    reactors = reactors.map((reaction) => {
-      const reactionJsx = <li>{reaction.user.name}</li>
+    reactors = reactors.map((reaction, index) => {
+      const reactionJsx = <li key={index}>{reaction.user.name}</li>
       return reactionJsx;
     });
     return <div className='tooltiptext'>{reactors}</div>;

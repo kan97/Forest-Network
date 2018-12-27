@@ -45,21 +45,7 @@ class Login extends Component {
           <div className="col-sm-4" />
         </div>
 
-        <div className="row login-signup">
-          <div className="col-sm-4" />
-          <div className="col-sm-4">
-            <button
-              type="button"
-              className="btn btn-default"
-              onClick={()=>{
-                this.props.signupFunc();
-              }}
-            >
-              Create new account?
-            </button>
-          </div>
-          <div className="col-sm-4" />
-        </div>
+        
       </div >
     );
   }
