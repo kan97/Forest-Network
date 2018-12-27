@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./followerList.css";
 import Follower from "./follower";
-import UTILS from "../../helper/UTILS";
 
 class FollowerList extends Component {
   getFollowerList = () => {
@@ -13,8 +12,6 @@ class FollowerList extends Component {
         if (this.props.followList && this.props.followList.includes(follower.publicKey)) {
           isFollowing = true;
         }
-
-        console.log(isFollowing);
 
         return (
           <Follower

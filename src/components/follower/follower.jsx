@@ -1,7 +1,61 @@
 import React, { Component } from "react";
 import "./follower.css";
+import axios from "axios";
+import UTILS from "../../helper/UTILS";
+const { sign, encode } = require("../../lib/tx/index");
+const base32 = require('base32.js');
 
 class Follower extends Component {
+  state = {
+    isFollowing: false
+  }
+
+  componentDidMount () {
+    
+  }
+
+  handleFollowButton = async isFollowing => {
+    const currUser = await UTILS.GetLiveCurrentUser()
+    if (!currUser) {
+      return;
+    }
+    const followings = currUser.followings
+    if (isFollowing) {
+      const index = followings.indexOf(this.props.userInfo.username)
+      followings.splice(index, 1)
+    }
+    else {
+      followings.push(this.props.userInfo.username)
+    }
+    const addresses = followings.map(e => 
+      Buffer.from(base32.decode(e))
+    )
+
+    const tx = {
+      version: 1,
+      sequence: currUser.sequence + 1,
+      memo: Buffer.alloc(0),
+      operation: "update_account",
+      params: {
+        key: "followings",
+        value: {
+          addresses: addresses
+        }
+      }
+    };
+    sign(tx, localStorage.getItem("secret"));
+    const etx = encode(tx).toString("base64");
+    axios.post("https://komodo.forest.network/", {
+      jsonrpc: "2.0",
+      id: "dontcare",
+      method: "broadcast_tx_commit",
+      params: [`${etx}`]
+    }).then(() => {
+      console.log('success');
+      
+    })
+  }
+
   render() {
     return (
       <div className="row follow-container" >

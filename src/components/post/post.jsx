@@ -302,24 +302,6 @@ class Post extends Component {
       }
     }
 
-<<<<<<< HEAD
-=======
-    const followBtn = () => {
-      if (this.props.post.isPostTimeline) {
-        return (
-          null
-        );
-      }
-      else {
-        return (
-          <div className="col-sm-2 post-follow">
-            <button type="button" className="btn btn-primary">Follow</button>
-          </div>
-        );
-      }
-    }
-
->>>>>>> 3b39276321ccff3d22d85d0e502ccebad0b47ee6
     return (
       <div className="container post-container">
         <div className="post-header row">

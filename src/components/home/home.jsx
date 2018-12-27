@@ -215,8 +215,6 @@ class Home extends Component {
       Buffer.from(base32.decode(e))
     )
 
-console.log({currUser});
-
     const tx = {
       version: 1,
       sequence: currUser.sequence + 1,
