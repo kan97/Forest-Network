@@ -276,23 +276,8 @@ class Post extends Component {
       }
       else {
         return (
-          <div className="col-sm-5 post-owner-name post-direct" onClick={this.handleDirectUser}>
+          <div className="col-sm-7 post-owner-name post-direct" onClick={this.handleDirectUser}>
             {this.props.post.fullName}
-          </div>
-        );
-      }
-    }
-
-    const followBtn = () => {
-      if (this.props.post.isPostTimeline) {
-        return (
-          null
-        );
-      }
-      else {
-        return (
-          <div className="col-sm-2 post-follow">
-            <button type="button" className="btn btn-primary">Follow</button>
           </div>
         );
       }
@@ -313,7 +298,6 @@ class Post extends Component {
             <span className="glyphicon glyphicon-time post-react" />
             {moment(this.props.post.time).fromNow()}
           </div>
-          {followBtn()}
         </div>
         <div className="post-horizal-line" />
         <div className="post-content">
