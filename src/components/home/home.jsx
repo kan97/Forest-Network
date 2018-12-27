@@ -198,8 +198,8 @@ class Home extends Component {
     }
   }
 
-  handleFollowButton = isFollowing => {
-    const currUser = UTILS.GetCurrentUser()
+  handleFollowButton = async isFollowing => {
+    const currUser = await UTILS.GetLiveCurrentUser()
     if (!currUser) {
       return <Redirect to="/login" />;
     }
@@ -214,7 +214,8 @@ class Home extends Component {
     const addresses = followings.map(e => 
       Buffer.from(base32.decode(e))
     )
-console.log(currUser);
+
+console.log({currUser});
 
     const tx = {
       version: 1,
@@ -353,7 +354,7 @@ console.log(currUser);
         styles={followStyles}
         showCloseIcon={false}
       >
-        <FollowerList title="Following" list={this.props.followingList} />
+        <FollowerList title="Following" list={this.props.followingList} followList={this.props.userInfo.followings} />
       </Modal>
     );
 

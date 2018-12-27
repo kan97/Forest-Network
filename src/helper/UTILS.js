@@ -29,4 +29,14 @@ UTILS.GetCurrentUser = function () {
     return Parse.User.current() ? Parse.User.current().toJSON() : null;
 }
 
+UTILS.GetLiveCurrentUser = function () {
+    const currUser = Parse.User.current();
+    return currUser.fetch().then((res)=>{
+        return res.toJSON();
+    }, ()=>{
+        return null;
+    })
+    
+}
+
 module.exports = UTILS;

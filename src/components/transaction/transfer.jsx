@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './transfer.css';
 import '../update/updateObject.css';
 import axios from "axios";
+import UTILS from "../../helper/UTILS";
 const { sign, encode } = require("../../lib/tx/index");
 
 class Transfer extends Component {
@@ -13,12 +14,13 @@ class Transfer extends Component {
         };
     }
 
-    submitTransfer = () => {
+    submitTransfer = async () => {
         const money = document.querySelector("#transferMoney").value;
         if (money && Number(money)) {
+            const currUser = await UTILS.GetLiveCurrentUser();
             const tx = {
                 version: 1,
-                sequence: this.props.currUser.sequence + 1,
+                sequence: currUser.sequence + 1,
                 memo: Buffer.alloc(0),
                 operation: "payment",
                 params: {

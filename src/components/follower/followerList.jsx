@@ -8,20 +8,20 @@ class FollowerList extends Component {
     if (this.props.list) {
       console.log(this.props.list.list);
 
-      const user = UTILS.GetCurrentUser();
-      let list = [];
-
-      if (user && user.followings) {
-        list = user.followings
-      }
-
       return this.props.list.list.map((follower, index) => {
+        let isFollowing = false;
+        if (this.props.followList && this.props.followList.includes(follower.publicKey)) {
+          isFollowing = true;
+        }
+
+        console.log(isFollowing);
+
         return (
           <Follower
             key={index}
             avatar={follower.avatar}
             name={follower.name}
-            isFollowing={list.includes(follower.publicKey)}
+            isFollowing={isFollowing}
             publicKey={follower.publicKey}
           />          
         );
