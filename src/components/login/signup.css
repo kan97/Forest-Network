@@ -1,0 +1,35 @@
+.signup-container {
+    margin: 100px auto 0 auto;
+}
+
+.text-14 {
+    font-size: 14px;
+    text-align: left;
+}
+
+.text-bold {
+    font-weight: 600;
+    font-size: 16px;
+    text-align: left;
+}
+
+.signup-row {
+    width: 100%;
+    margin: 16px 0;
+}
+
+.hor-line {
+    height: 1px;
+    width: 100%;
+    background-color: #ddd;
+}
+
+.signup-button button {
+    width: 100%;
+    height: 50px;
+}
+
+.signin-button button {
+    width: 100%;
+    height: 50px;
+}

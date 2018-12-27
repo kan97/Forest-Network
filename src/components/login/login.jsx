@@ -14,6 +14,7 @@ class Login extends Component {
           />
           <img src="/img/title.png" alt="logo-img" className="login-title" />
         </div>
+
         <div className="row login-input">
           <div className="col-sm-4" />
           <div className="col-sm-4">
@@ -26,6 +27,7 @@ class Login extends Component {
           </div>
           <div className="col-sm-4" />
         </div>
+
         <div className="row login-submit">
           <div className="col-sm-4" />
           <div className="col-sm-4">
@@ -42,7 +44,23 @@ class Login extends Component {
           </div>
           <div className="col-sm-4" />
         </div>
-      </div>
+
+        <div className="row login-signup">
+          <div className="col-sm-4" />
+          <div className="col-sm-4">
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={()=>{
+                this.props.signupFunc();
+              }}
+            >
+              Create new account?
+            </button>
+          </div>
+          <div className="col-sm-4" />
+        </div>
+      </div >
     );
   }
 }
