@@ -137,7 +137,17 @@ class Home extends Component {
               }}
             >
               Edit avatar
-                  </button>
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-default btn-edit btn-edit-avat float-left"
+              onClick={()=>{
+                window.location.href = "/signup";
+              }}
+            >
+              Create account
+            </button>
           </div>
         </div>
       );
