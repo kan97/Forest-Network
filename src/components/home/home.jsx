@@ -143,7 +143,7 @@ class Home extends Component {
             <button
               type="button"
               className="btn btn-default btn-edit btn-edit-avat float-left"
-              onClick={()=>{
+              onClick={() => {
                 window.location.href = "/signup";
               }}
             >
@@ -186,7 +186,7 @@ class Home extends Component {
           <button
             type="button"
             className={"btn btn-warning btn-follow float-left"}
-            style={{marginLeft:"8px"}}
+            style={{ marginLeft: "8px" }}
             onClick={() => {
               this.onOpenModal("openTransfer");
             }}
@@ -211,7 +211,7 @@ class Home extends Component {
     else {
       followings.push(this.props.userInfo.username)
     }
-    const addresses = followings.map(e => 
+    const addresses = followings.map(e =>
       Buffer.from(base32.decode(e))
     )
 
@@ -236,7 +236,9 @@ class Home extends Component {
       params: [`${etx}`]
     }).then(() => {
       console.log('success');
-      
+      const newState = _.clone(this.state);
+      newState["isFollowing"] = !isFollowing;
+      this.setState(newState);
     })
   }
 
@@ -290,7 +292,6 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.delPosts();
-    this.props.setCurrUser(UTILS.GetCurrentUser())
     if (this.props.userId || this.props.userKey) {
       const params = {
         "publicKey": this.props.userKey,
@@ -331,7 +332,7 @@ class Home extends Component {
           this.props.getUserInfo(res);
           this.getPosts(res.objectId);
           this.getFollowingList(res.objectId);
-  
+
           return;
         }).catch((err) => {
           console.log("Error when fetch mypage is: ", err);
@@ -352,7 +353,11 @@ class Home extends Component {
         styles={followStyles}
         showCloseIcon={false}
       >
-        <FollowerList title="Following" list={this.props.followingList} followList={this.props.userInfo.followings} />
+        <FollowerList title="Following"
+          list={this.props.followingList}
+          followList={this.props.userInfo.followings}
+          userInfo={this.props.userInfo}
+        />
       </Modal>
     );
 
@@ -406,11 +411,9 @@ class Home extends Component {
         styles={followStyles}
         showCloseIcon={false}
       >
-        <Transfer 
-        userInfo={this.props.userInfo} 
-        currUser={this.props.currUser}
-        incCurrUserSeq={this.props.incCurrUserSeq}
-        incUserBal={this.props.incUserBal}
+        <Transfer
+          userInfo={this.props.userInfo}
+          incUserBal={this.props.incUserBal}
         />
       </Modal>
     );

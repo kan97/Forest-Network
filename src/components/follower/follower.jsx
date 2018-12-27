@@ -6,12 +6,17 @@ const { sign, encode } = require("../../lib/tx/index");
 const base32 = require('base32.js');
 
 class Follower extends Component {
-  state = {
-    isFollowing: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFollowing: false
+    };
   }
 
   componentDidMount () {
-    
+    this.setState({
+      isFollowing: this.props.isFollowing
+    });
   }
 
   handleFollowButton = async isFollowing => {
@@ -52,7 +57,9 @@ class Follower extends Component {
       params: [`${etx}`]
     }).then(() => {
       console.log('success');
-      
+      this.setState({
+        isFollowing: !isFollowing
+      });
     })
   }
 
@@ -74,12 +81,16 @@ class Follower extends Component {
           {this.props.name}
         </div>
         <div className="col-sm-3">
-          {this.props.isFollowing ? (
-            <button type="button" className="btn btn-default follow-button">
+          {this.state.isFollowing ? (
+            <button type="button" className="btn btn-default follow-button" onClick={()=> {
+              this.handleFollowButton(this.state.isFollowing);
+            }}>
               Following
             </button>
           ) : (
-              <button type="button" className="btn btn-primary follow-button">
+              <button type="button" className="btn btn-primary follow-button" onClick={()=> {
+                this.handleFollowButton(this.state.isFollowing);
+              }}>
                 Follow
             </button>
             )}

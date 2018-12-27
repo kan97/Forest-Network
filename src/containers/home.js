@@ -5,13 +5,11 @@ import {
 import { setName, getUserInfo, incUserBal } from "../store/actions/userInfo";
 import { getPostTimeline, delPosts } from "../store/actions/post";
 import { getFollowing } from "../store/actions/following";
-import { incCurrUserSeq, setCurrUser } from "../store/actions/currUser";
 
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
   postList: state.post,
-  followingList: state.followingList,
-  currUser: state.currUser
+  followingList: state.followingList
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,9 +18,7 @@ const mapDispatchToProps = dispatch => ({
   getPostTimeline: post => dispatch(getPostTimeline(post)),
   getFollowing: list => dispatch(getFollowing(list)),
   delPosts: () => dispatch(delPosts()),
-  incCurrUserSeq: () => dispatch(incCurrUserSeq()),
-  incUserBal: amount => dispatch(incUserBal(amount)),
-  setCurrUser: user => dispatch(setCurrUser(user)),
+  incUserBal: amount => dispatch(incUserBal(amount))
 });
 
 export default connect(

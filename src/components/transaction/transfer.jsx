@@ -37,7 +37,6 @@ class Transfer extends Component {
                 params: [`${etx}`]
             }).then(() => {
                 this.props.incUserBal(money)
-                this.props.incCurrUserSeq()
 
                 this.setState({
                     paymentStatus: true

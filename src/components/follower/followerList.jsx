@@ -20,6 +20,7 @@ class FollowerList extends Component {
             name={follower.name}
             isFollowing={isFollowing}
             publicKey={follower.publicKey}
+            userInfo={this.props.userInfo}
           />          
         );
       });
