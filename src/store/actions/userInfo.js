@@ -26,3 +26,10 @@ export const setPicture = picture => {
     picture,
   }
 }
+
+export const incUserBal = amount => {
+  return {
+    type: Types.INC_USER_BAL,
+    amount
+  }
+}

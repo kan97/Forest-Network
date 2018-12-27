@@ -14,6 +14,12 @@ const userInfo = (state = initialState, action) => {
           sequence: action.user.sequence,
         }
   
+    case Types.INC_CURR_USER_SEQ:
+        return {
+          ...state,
+          sequence: state.sequence + 1,
+        }
+
       default:
         return state;
     }

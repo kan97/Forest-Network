@@ -60,6 +60,12 @@ const userInfo = (state = initialState, action) => {
         sequence: state.sequence + 1,
       }
 
+    case Types.INC_USER_BAL:
+      return {
+        ...state,
+        balance: state.balance + action.amount
+      }
+
     default:
       return state;
   }

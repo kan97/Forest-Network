@@ -6,3 +6,9 @@ export const setCurrUser = user => {
     user,
   }
 }
+
+export const incCurrUserSeq = () => {
+  return {
+    type: Types.INC_CURR_USER_SEQ,
+  }
+}
