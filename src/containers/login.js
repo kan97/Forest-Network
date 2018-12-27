@@ -27,6 +27,10 @@ class Login extends Component {
     }
   };
 
+  goToSignUp = () => {
+    window.location.href = "/signup";
+  }
+
   render() {
     const user = UTILS.GetCurrentUser();
     if (user) {
@@ -35,6 +39,7 @@ class Login extends Component {
     return (
       <LoginPre
         callbackFromParent={this.myCallback}
+        signupFunc={this.goToSignUp}
       />
     );
   }

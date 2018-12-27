@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from '../containers/home';
 import Login from '../containers/login';
+import Signup from '../containers/signup';
 import Explore from '../containers/explore';
 
 const routes = [
@@ -24,6 +25,11 @@ const routes = [
         path: '/login',
         exact: false,
         main: () => <Login />
+    },
+    {
+        path: '/signup',
+        exact: false,
+        main: () => <Signup />
     }
 ]
 
