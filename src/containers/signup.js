@@ -15,7 +15,7 @@ class Signup extends Component {
     }
 
     returnToLogin = () => {
-        window.location.href = "/login";
+        window.location.href = "/mypage";
     }
 
     render() { 

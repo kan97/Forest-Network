@@ -22,7 +22,8 @@ const post = (state = initialState, action) => {
           hash: e.hash,
           avatar: e.user.picture ? e.user.picture : "https://png.pngtree.com/svg/20161212/personal_default_avatar_for_mobile_phone_app__146524.png",
           fullName: e.user.name,
-          isPostTimeline: true
+          isPostTimeline: true,
+          reactions: e.reactions
         }
       });
       
@@ -47,7 +48,8 @@ const post = (state = initialState, action) => {
           hash: e.hash,
           avatar: e.user.picture ? e.user.picture : "https://png.pngtree.com/svg/20161212/personal_default_avatar_for_mobile_phone_app__146524.png",
           fullName: e.user.name,
-          isPostTimeline: false
+          isPostTimeline: false,
+          reactions: e.reactions
         }
       });
       

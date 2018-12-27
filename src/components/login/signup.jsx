@@ -58,7 +58,7 @@ class Signup extends Component {
                     <div className="col-sm-4" />
                     <div className="col-sm-4 signin-button">
                         <button type="button" className="btn btn-default" onClick={this.props.returnLogin}>
-                            Return to login
+                            Return to my page
                     </button>
                     </div>
                     <div className="col-sm-4" />

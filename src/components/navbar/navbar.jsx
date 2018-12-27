@@ -15,7 +15,7 @@ class Navbar extends Component {
   
   showButtonOnNavi = () => {
     const user = UTILS.GetCurrentUser();
-    if (!user && !this.props.pathname.includes("login")) {
+    if (!user && !this.props.pathname.includes("login") && !this.props.pathname.includes("signup")) {
       return (
         <button
           type="button"
@@ -29,7 +29,7 @@ class Navbar extends Component {
       );
     }
     else {
-      if (!this.props.pathname.includes("login")) {
+      if (!this.props.pathname.includes("login") && !this.props.pathname.includes("signup")) {
         return (
           <span>
             <button

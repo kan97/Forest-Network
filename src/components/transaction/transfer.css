@@ -1,3 +1,26 @@
 .transfer-input {
     padding: 16px;
 }
+
+.notice-label {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 0px 16px 16px 16px;
+}
+
+.success-label {
+    color: #5cb85c;
+}
+
+.error-label {
+    color: #d9534f;
+}
+
+.transfer-input input {
+    height: 50px;
+}
