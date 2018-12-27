@@ -8,8 +8,8 @@ import { getFollowing } from "../store/actions/following";
 
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
-  postList: state.post,
-  followingList: state.followingList
+  postList: state.post.postList,
+  followingList: state.followingList.list
 });
 
 const mapDispatchToProps = dispatch => ({

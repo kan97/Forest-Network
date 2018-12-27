@@ -26,6 +26,7 @@ class Home extends Component {
     openTransfer: false
   };
 
+  // Functions are MODAL helper
   onOpenModal = openModal => {
     const newState = _.clone(this.state);
     newState[openModal] = true;
@@ -38,6 +39,9 @@ class Home extends Component {
     this.setState(newState);
   };
 
+  //
+  // Functions show web client -------------------
+  //
   editName = () => {
     if (this.state.isEditingName) {
       return (
@@ -73,46 +77,6 @@ class Home extends Component {
         </div>
       );
     }
-  };
-
-  editNameOnClick = () => {
-    const newState = _.clone(this.state);
-    newState["isEditingName"] = true;
-    this.setState(newState);
-  };
-
-  cancelEditNameOnClick = () => {
-    const newState = _.clone(this.state);
-    newState["isEditingName"] = false;
-    this.setState(newState);
-  };
-
-  saveNameOnClick = () => {
-    const name = document.querySelector("#fullName").value
-    const tx = {
-      version: 1,
-      sequence: this.props.userInfo.sequence + 1,
-      memo: Buffer.alloc(0),
-      operation: "update_account",
-      params: {
-        key: "name",
-        value: Buffer.from(name, "utf-8")
-      }
-    };
-    sign(tx, localStorage.getItem("secret"));
-    const etx = encode(tx).toString("base64");
-    axios.post("https://komodo.forest.network/", {
-      jsonrpc: "2.0",
-      id: "dontcare",
-      method: "broadcast_tx_commit",
-      params: [`${etx}`]
-    }).then(() => {
-      this.props.setName(name)
-    })
-
-    const newState = _.clone(this.state);
-    newState["isEditingName"] = false;
-    this.setState(newState);
   };
 
   showEditButtons = () => {
@@ -198,11 +162,74 @@ class Home extends Component {
     }
   }
 
+  showWriteAPost = () => {
+    const user = UTILS.GetCurrentUser();
+    if (user && user.username === this.props.userInfo.username) {
+      return (
+        <StatusPost userInfo={this.props.userInfo} />
+      );
+    }
+    else {
+      return (
+        <div />
+      );
+    }
+  }
+
+
+  //
+  // Handler functions ------------------------------------------------
+  //
+  editNameOnClick = () => {
+    const newState = _.clone(this.state);
+    newState["isEditingName"] = true;
+    this.setState(newState);
+  };
+
+  cancelEditNameOnClick = () => {
+    const newState = _.clone(this.state);
+    newState["isEditingName"] = false;
+    this.setState(newState);
+  };
+
+  saveNameOnClick = () => {
+    const name = document.querySelector("#fullName").value
+    const tx = {
+      version: 1,
+      sequence: this.props.userInfo.sequence + 1,
+      memo: Buffer.alloc(0),
+      operation: "update_account",
+      params: {
+        key: "name",
+        value: Buffer.from(name, "utf-8")
+      }
+    };
+    sign(tx, localStorage.getItem("secret"));
+    const etx = encode(tx).toString("base64");
+    axios.post("https://komodo.forest.network/", {
+      jsonrpc: "2.0",
+      id: "dontcare",
+      method: "broadcast_tx_commit",
+      params: [`${etx}`]
+    }).then(() => {
+      this.props.setName(name)
+    })
+
+    const newState = _.clone(this.state);
+    newState["isEditingName"] = false;
+    this.setState(newState);
+  };
+
   handleFollowButton = async isFollowing => {
+    const newState = _.clone(this.state);
+    newState["isFollowing"] = !isFollowing;
+    this.setState(newState);
+
     const currUser = await UTILS.GetLiveCurrentUser()
     if (!currUser) {
       return <Redirect to="/login" />;
     }
+
     const followings = currUser.followings
     if (isFollowing) {
       const index = followings.indexOf(this.props.userInfo.username)
@@ -235,36 +262,22 @@ class Home extends Component {
       method: "broadcast_tx_commit",
       params: [`${etx}`]
     }).then(() => {
-      console.log('success');
       const newState = _.clone(this.state);
       newState["isFollowing"] = !isFollowing;
       this.setState(newState);
     })
   }
 
-  showWriteAPost = () => {
-    const user = UTILS.GetCurrentUser();
-    if (user && user.username === this.props.userInfo.username) {
-      return (
-        <StatusPost userInfo={this.props.userInfo} />
-      );
-    }
-    else {
-      return (
-        <div />
-      );
-    }
-  }
-
+  //
+  // API caller functions ----------------------------
+  //
   getPosts = (userKey) => {
     if (userKey) {
       const params = userKey === "currentUser" ? null : {
         "userId": userKey
       }
 
-      console.log(params);
       UTILS.callAPI("getPostsTimeline", params).then((res) => {
-        console.log("Posts: ", res);
         this.props.getPostTimeline(res);
       }).catch((err) => {
         console.log("Get posts timeline error by: ", err);
@@ -282,7 +295,6 @@ class Home extends Component {
       }
 
       UTILS.callAPI("getFollowingList", params).then((res) => {
-        console.log("Following list: ", res);
         this.props.getFollowing(res);
       }).catch((err) => {
         console.log("Error when getfollowing: ", err)
@@ -290,6 +302,9 @@ class Home extends Component {
     }
   }
 
+  //
+  // ---------------------------------------------------------------------------------------------------------------------------  //
+  //
   componentDidMount() {
     this.props.delPosts();
     if (this.props.userId || this.props.userKey) {
@@ -298,7 +313,6 @@ class Home extends Component {
         "userId": this.props.userId
       }
       UTILS.callAPI("getUser", params).then((res) => {
-        console.log({ res });
         this.props.getUserInfo(res);
         this.getPosts(res.objectId);
         this.getFollowingList(res.objectId);
@@ -320,15 +334,12 @@ class Home extends Component {
     }
     else {
       const user = UTILS.GetCurrentUser();
-      console.log({ user });
-
       if (!user) {
         window.location.href = "/login";
         return
       }
       else {
         UTILS.callAPI("getUser", { "publicKey": user.username }).then((res) => {
-          console.log({ res });
           this.props.getUserInfo(res);
           this.getPosts(res.objectId);
           this.getFollowingList(res.objectId);
@@ -342,6 +353,9 @@ class Home extends Component {
     }
   }
 
+  //
+  // ---------------------------------------------------------------------------------------------------------------------------  //
+  //
   render() {
     const modalFollowing = (
       <Modal
@@ -355,7 +369,7 @@ class Home extends Component {
       >
         <FollowerList title="Following"
           list={this.props.followingList}
-          followList={this.props.userInfo.followings}
+          followList={this.props.followingList}
           userInfo={this.props.userInfo}
         />
       </Modal>
@@ -417,6 +431,8 @@ class Home extends Component {
         />
       </Modal>
     );
+
+    // -------------------------------------------------------------------------------------------- //
 
     return (
       <div

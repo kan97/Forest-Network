@@ -65,21 +65,17 @@ class Navbar extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const keyword = document.querySelector("#searchUser").value;
-    console.log({keyword});
-
+    
     if (keyword && keyword.length > 0) {
       const params = {
         "keyword": keyword
       }
   
       await UTILS.callAPI("searchUserByKeyword", params).then((res)=>{
-        console.log({res});
         this.props.searchUser(res);
       }).catch((err)=>{
         console.log("Error when search keyword ", keyword, " is: ", err);
       });
-
-      console.log("Reuslt: ", this.props.results);
 
       if (this.props.results) {
         this.onOpenModal("openModalResults");

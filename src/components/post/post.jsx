@@ -246,13 +246,11 @@ class Post extends Component {
   };
 
   getPostReactorsList = () => {
-    console.log(this.props.post.reactions);
     let reactors = this.props.post.reactions;
     if (!reactors) {
       return <div></div>;
     }
     reactors = reactors.map((reaction) => {
-      console.log(reaction.user.name)
       const reactionJsx = <li>{reaction.user.name}</li>
       return reactionJsx;
     });

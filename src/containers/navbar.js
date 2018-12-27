@@ -44,7 +44,7 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => ({
-  results: state.searchUserByKeyword
+  results: state.searchUserByKeyword.list
 });
 
 const mapDispatchToProps = dispatch => ({

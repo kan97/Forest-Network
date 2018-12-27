@@ -5,9 +5,7 @@ import Follower from "./follower";
 class FollowerList extends Component {
   getFollowerList = () => {
     if (this.props.list) {
-      console.log(this.props.list.list);
-
-      return this.props.list.list.map((follower, index) => {
+      return this.props.list.map((follower, index) => {
         let isFollowing = false;
         if (this.props.followList && this.props.followList.includes(follower.publicKey)) {
           isFollowing = true;

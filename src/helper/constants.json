@@ -6,7 +6,7 @@
         "PARSE_SERVER_JAVASCRIPT_KEY": "f-js-key",
         "PARSE_SERVER_REST_API_KEY": "f-rest-key",
         "PARSE_SERVER_CLIENT_KEY": "f-client-key",
-        "SERVER_URL": "http://172.20.10.4:1337/api"
+        "SERVER_URL": "https://forest-network-api.glitch.me/api"
     }
 }
 

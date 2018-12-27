@@ -34,7 +34,6 @@ class Explore extends Component {
         }
 
         UTILS.callAPI("getPostsExplore", params).then((res)=>{
-            console.log("Posts in explore: ", res);
             this.props.getPostExplore(res);
         }).catch((err)=>{
             console.log("Error when get posts in explorer is ", err);

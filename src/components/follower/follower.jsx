@@ -20,6 +20,9 @@ class Follower extends Component {
   }
 
   handleFollowButton = async isFollowing => {
+    this.setState({
+      isFollowing: !isFollowing
+    });
     const currUser = await UTILS.GetLiveCurrentUser()
     if (!currUser) {
       return;
@@ -56,7 +59,6 @@ class Follower extends Component {
       method: "broadcast_tx_commit",
       params: [`${etx}`]
     }).then(() => {
-      console.log('success');
       this.setState({
         isFollowing: !isFollowing
       });

@@ -49,9 +49,7 @@ class Transfer extends Component {
                 });
 
                 document.getElementById("transferMoney").value = "";
-            })
-            console.log("Success ", money);
-            
+            })           
         }
         else {
             document.getElementById("transferMoney").value = "";
