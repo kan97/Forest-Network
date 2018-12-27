@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./updateObject.css";
 import axios from "axios";
-import UTILS from "../../helper/UTILS";
 import {
   connect
 } from "react-redux";

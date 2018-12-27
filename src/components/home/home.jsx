@@ -7,6 +7,7 @@ import StatusPost from "../post/statusPost";
 import PropTypes from "prop-types";
 import FollowerList from "../follower/followerList";
 import UpdateAvatar from "../update/updateAvatar";
+import Transfer from "../transaction/transfer";
 import { Redirect } from "react-router-dom";
 import UTILS from "../../helper/UTILS";
 import axios from "axios";
@@ -20,7 +21,8 @@ class Home extends Component {
     isEditingName: false,
     openAvatarUpdating: false,
     hasUserKey: false,
-    isFollowing: false
+    isFollowing: false,
+    openTransfer: false
   };
 
   onOpenModal = openModal => {
@@ -169,6 +171,17 @@ class Home extends Component {
           >
             {this.state.isFollowing ? "Following" : "Follow"}
           </button>
+
+          <button
+            type="button"
+            className={"btn btn-warning btn-follow float-left"}
+            style={{marginLeft:"8px"}}
+            onClick={() => {
+              this.onOpenModal("openTransfer");
+            }}
+          >
+            Transfer
+          </button>
         </div>
       );
     }
@@ -231,7 +244,6 @@ class Home extends Component {
   componentDidMount() {
     this.props.delPosts();
     if (this.props.userKey) {
-      console.log("asdasdasdas");
       UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
         console.log({ res });
         this.props.getUserInfo(res);
@@ -254,7 +266,6 @@ class Home extends Component {
       });
     }
     else {
-      console.log("12349684123");
       const user = UTILS.GetCurrentUser();
       console.log({ user });
 
@@ -324,6 +335,20 @@ class Home extends Component {
         );
       }
     }
+
+    const modalTransfer = (
+      <Modal
+        center={true}
+        onClose={() => {
+          this.onCloseModal("openTransfer");
+        }}
+        open={this.state.openTransfer}
+        styles={followStyles}
+        showCloseIcon={false}
+      >
+        <Transfer userInfo={this.props.userInfo} />
+      </Modal>
+    );
 
     return (
       <div
@@ -423,6 +448,7 @@ class Home extends Component {
 
           {modalFollowing}
           {modalAvatarUpdating}
+          {modalTransfer}
         </div>
       </div>
     );

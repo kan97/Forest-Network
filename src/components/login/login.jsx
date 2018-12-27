@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 class Login extends Component {
   render() {
     return (
-      <div class="container login-container">
+      <div className="container login-container">
         <div className="row login-header">
           <img
             src="/img/forestnetworkshadow.png"
