@@ -5,12 +5,14 @@ import post from './postList'
 import userInfo from './userInfo'
 import followingList from './followingList'
 import searchUserByKeyword from './search';
+import myFollowingList from './followerList';
 
 const rootReducer = combineReducers({
   userInfo,
   post,
   followingList,
-  searchUserByKeyword
+  searchUserByKeyword,
+  myFollowingList
 })
 
 export default rootReducer

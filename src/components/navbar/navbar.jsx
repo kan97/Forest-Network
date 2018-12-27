@@ -12,7 +12,7 @@ class Navbar extends Component {
   state = {
     openModalResults: false
   }
-  
+
   showButtonOnNavi = () => {
     const user = UTILS.GetCurrentUser();
     if (!user && !this.props.pathname.includes("login") && !this.props.pathname.includes("signup")) {
@@ -42,17 +42,17 @@ class Navbar extends Component {
             >
               Log Out
           </button>
-          <Link to="/mypage" >
-            <button
-              type="button"
-              className="btn btn-primary right-button"
-              onClick={() => {
-                
-              }}
-            >
-              Me
+            <Link to="/mypage" >
+              <button
+                type="button"
+                className="btn btn-primary right-button"
+                onClick={() => {
+
+                }}
+              >
+                Me
             </button>
-          </Link>
+            </Link>
           </span>
         );
       }
@@ -62,24 +62,44 @@ class Navbar extends Component {
     }
   }
 
+  getMyFollowingList = () => {
+    const user = UTILS.GetCurrentUser();
+    if (!user) {
+      return;
+    }
+
+    UTILS.callAPI("getUser", { "userId": user.objectId }).then((res) => {
+      if (res.followings) {
+        this.props.getMyFollowing(res.followings);
+      }
+      else {
+        this.props.getMyFollowing([]);
+      }
+    }).catch((err) => {
+      console.log("Error when getMyfollowing: ", err)
+    })
+  }
+
   handleSubmit = async (e) => {
     e.preventDefault();
     const keyword = document.querySelector("#searchUser").value;
-    
+
     if (keyword && keyword.length > 0) {
       const params = {
         "keyword": keyword
       }
-  
-      await UTILS.callAPI("searchUserByKeyword", params).then((res)=>{
+
+      this.getMyFollowingList();
+
+      await UTILS.callAPI("searchUserByKeyword", params).then((res) => {
         this.props.searchUser(res);
-      }).catch((err)=>{
+      }).catch((err) => {
         console.log("Error when search keyword ", keyword, " is: ", err);
       });
 
       if (this.props.results) {
         this.onOpenModal("openModalResults");
-      } 
+      }
     }
   }
 
@@ -98,6 +118,19 @@ class Navbar extends Component {
   };
 
   render() {
+    const title = () => {
+      if (this.props.results) {
+        if (this.props.results.length > 1) {
+          return this.props.results.length + " results";
+        }
+        else {
+          return this.props.results.length + " result";
+        }
+      }
+      else {
+        return "0 result";
+      }
+    }
     const modalResults = (
       <Modal
         center={true}
@@ -108,7 +141,11 @@ class Navbar extends Component {
         styles={modalStyles}
         showCloseIcon={false}
       >
-        <FollowerList title={"Results"} list={this.props.results} />
+        <FollowerList
+          title={title()}
+          list={this.props.results}
+          followList={this.props.myFollowingList}
+        />
       </Modal>
     );
 
@@ -183,7 +220,7 @@ const modalStyles = {
 };
 
 Navbar.propTypes = {
-  results: PropTypes.array,  
+  results: PropTypes.array,
   searchUser: PropTypes.func.isRequired
 };
 

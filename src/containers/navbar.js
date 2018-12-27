@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { delUserInfo } from "../store/actions/userInfo";
 import { searchUser } from "../store/actions/following";
+import { getMyFollowing } from "../store/actions/following";
 
 class Navbar extends Component {
   state = {
@@ -38,18 +39,21 @@ class Navbar extends Component {
         mypageCallback={this.mypageCallback}
         searchUser={this.props.searchUser}
         results={this.props.results}
+        myFollowingList={this.props.myFollowingList}
       />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  results: state.searchUserByKeyword.list
+  results: state.searchUserByKeyword.list,
+  myFollowingList: state.myFollowingList.list
 });
 
 const mapDispatchToProps = dispatch => ({
   delUserInfo: () => dispatch(delUserInfo()),
-  searchUser: list => dispatch(searchUser(list))
+  searchUser: list => dispatch(searchUser(list)),
+  getMyFollowing: list => dispatch(getMyFollowing(list)),
 });
 
 export default withRouter(connect(

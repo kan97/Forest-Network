@@ -21,7 +21,6 @@ class Home extends Component {
     openFollowing: false,
     isEditingName: false,
     openAvatarUpdating: false,
-    hasUserKey: false,
     isFollowing: false,
     openTransfer: false
   };
@@ -298,8 +297,26 @@ class Home extends Component {
         this.props.getFollowing(res);
       }).catch((err) => {
         console.log("Error when getfollowing: ", err)
-      });
+      })
     }
+  }
+
+  getMyFollowingList = () => {
+    const user = UTILS.GetCurrentUser();
+    if (!user) {
+      return;
+    }
+
+    UTILS.callAPI("getUser", { "userId": user.objectId }).then((res) => {
+      if (res.followings) {
+        this.props.getMyFollowing(res.followings);
+      }
+      else {
+        this.props.getMyFollowing([]);
+      }
+    }).catch((err) => {
+      console.log("Error when getMyfollowing: ", err)
+    })
   }
 
   //
@@ -315,11 +332,11 @@ class Home extends Component {
       UTILS.callAPI("getUser", params).then((res) => {
         this.props.getUserInfo(res);
         this.getPosts(res.objectId);
+        this.getMyFollowingList();
         this.getFollowingList(res.objectId);
 
-        const user = UTILS.GetCurrentUser();
-        if (user && user.followings) {
-          if (user.followings.includes(res.username)) {
+        if (this.props.myFollowingList) {
+          if (this.props.myFollowingList.includes(res.username)) {
             const newState = _.clone(this.state);
             newState["isFollowing"] = true;
             this.setState(newState);
@@ -342,7 +359,8 @@ class Home extends Component {
         UTILS.callAPI("getUser", { "publicKey": user.username }).then((res) => {
           this.props.getUserInfo(res);
           this.getPosts(res.objectId);
-          this.getFollowingList(res.objectId);
+          this.getFollowingList("currentUser");
+          this.getMyFollowingList();
 
           return;
         }).catch((err) => {
@@ -369,7 +387,7 @@ class Home extends Component {
       >
         <FollowerList title="Following"
           list={this.props.followingList}
-          followList={this.props.followingList}
+          followList={this.props.myFollowingList}
           userInfo={this.props.userInfo}
         />
       </Modal>
@@ -395,8 +413,8 @@ class Home extends Component {
     );
 
     const showPosts = () => {
-      if (this.props.postList && this.props.postList.postList) {
-        const list = this.props.postList.postList.map((post, index) => {
+      if (this.props.postList) {
+        const list = this.props.postList.map((post, index) => {
           return <Post
             key={index}
             post={post}
@@ -548,7 +566,8 @@ Home.propTypes = {
   getUserInfo: PropTypes.func.isRequired,
   getPostTimeline: PropTypes.func.isRequired,
   getFollowing: PropTypes.func.isRequired,
-  delPosts: PropTypes.func
+  delPosts: PropTypes.func,
+  getMyFollowing: PropTypes.func.isRequired
 };
 const followStyles = {
   modal: {

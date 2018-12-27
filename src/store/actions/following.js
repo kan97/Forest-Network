@@ -13,3 +13,10 @@ export const searchUser = (list) => {
     list
   }
 }
+
+export const getMyFollowing = (list) => {
+  return {
+    type: Types.GET_MYFOLLOWING,
+    list
+  }
+}

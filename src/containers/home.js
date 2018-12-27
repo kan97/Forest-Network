@@ -5,11 +5,13 @@ import {
 import { setName, getUserInfo, incUserBal } from "../store/actions/userInfo";
 import { getPostTimeline, delPosts } from "../store/actions/post";
 import { getFollowing } from "../store/actions/following";
+import { getMyFollowing } from "../store/actions/following";
 
 const mapStateToProps = state => ({
   userInfo: state.userInfo,
   postList: state.post.postList,
-  followingList: state.followingList.list
+  followingList: state.followingList.list,
+  myFollowingList: state.myFollowingList.list
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -18,7 +20,8 @@ const mapDispatchToProps = dispatch => ({
   getPostTimeline: post => dispatch(getPostTimeline(post)),
   getFollowing: list => dispatch(getFollowing(list)),
   delPosts: () => dispatch(delPosts()),
-  incUserBal: amount => dispatch(incUserBal(amount))
+  incUserBal: amount => dispatch(incUserBal(amount)),
+  getMyFollowing: list => dispatch(getMyFollowing(list)),
 });
 
 export default connect(

@@ -14,3 +14,5 @@ export const SEARCH_USER = 'SEARCH_USER'
 
 export const SET_CURR_USER = 'SET_CURR_USER'
 export const INC_CURR_USER_SEQ = 'INC_CURR_USER_SEQ'
+
+export const GET_MYFOLLOWING = 'GET_MYFOLLOWING'

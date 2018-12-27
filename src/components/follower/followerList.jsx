@@ -19,10 +19,11 @@ class FollowerList extends Component {
             isFollowing={isFollowing}
             publicKey={follower.publicKey}
             userInfo={this.props.userInfo}
-          />          
+          />
         );
       });
-    } else {
+    }
+    else {
       return <div className="row">This list is still empty!</div>;
     }
   };

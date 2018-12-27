@@ -13,7 +13,7 @@ class Follower extends Component {
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setState({
       isFollowing: this.props.isFollowing
     });
@@ -35,7 +35,7 @@ class Follower extends Component {
     else {
       followings.push(this.props.userInfo.username)
     }
-    const addresses = followings.map(e => 
+    const addresses = followings.map(e =>
       Buffer.from(base32.decode(e))
     )
 
@@ -66,6 +66,36 @@ class Follower extends Component {
   }
 
   render() {
+    const showFollowBtn = () => {
+      const user = UTILS.GetCurrentUser();
+
+      if (!user) {
+        return null;
+      }
+      else if (user.username === this.props.publicKey) {
+        return null;
+      }
+      else {
+        return (
+          <div className="col-sm-3">
+            {this.state.isFollowing ? (
+              <button type="button" className="btn btn-default follow-button" onClick={() => {
+                this.handleFollowButton(this.state.isFollowing);
+              }}>
+                Following
+            </button>
+            ) : (
+                <button type="button" className="btn btn-primary follow-button" onClick={() => {
+                  this.handleFollowButton(this.state.isFollowing);
+                }}>
+                  Follow
+            </button>
+              )}
+          </div>
+        );
+      }
+    }
+
     return (
       <div className="row follow-container" >
         <div className="col-sm-1" onClick={() => {
@@ -82,21 +112,7 @@ class Follower extends Component {
         }}>
           {this.props.name}
         </div>
-        <div className="col-sm-3">
-          {this.state.isFollowing ? (
-            <button type="button" className="btn btn-default follow-button" onClick={()=> {
-              this.handleFollowButton(this.state.isFollowing);
-            }}>
-              Following
-            </button>
-          ) : (
-              <button type="button" className="btn btn-primary follow-button" onClick={()=> {
-                this.handleFollowButton(this.state.isFollowing);
-              }}>
-                Follow
-            </button>
-            )}
-        </div>
+        {showFollowBtn()}
       </div>
     );
   }
