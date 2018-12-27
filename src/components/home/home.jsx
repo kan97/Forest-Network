@@ -243,6 +243,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.props.delPosts();
+    this.props.setCurrUser(UTILS.GetCurrentUser())
     if (this.props.userKey) {
       UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
         console.log({ res });
@@ -346,7 +347,12 @@ class Home extends Component {
         styles={followStyles}
         showCloseIcon={false}
       >
-        <Transfer userInfo={this.props.userInfo} />
+        <Transfer 
+        userInfo={this.props.userInfo} 
+        currUser={this.props.currUser}
+        incCurrUserSeq={this.props.incCurrUserSeq}
+        incUserBal={this.props.incUserBal}
+        />
       </Modal>
     );
 

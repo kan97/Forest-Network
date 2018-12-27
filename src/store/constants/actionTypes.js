@@ -2,6 +2,7 @@ export const GET_USER_INFO = 'GET_USER_INFO'
 export const DEL_USER_INFO = 'DEL_USER_INFO'
 export const SET_NAME = 'SET_NAME'
 export const SET_PICTURE = 'SET_PICTURE'
+export const INC_USER_BAL = 'INC_USER_BAL'
 
 export const GET_POST_TIMELINE = 'GET_POST_TIMELINE'
 export const GET_POST_EXPLORE = 'GET_POST_EXPLORE'
@@ -10,3 +11,6 @@ export const DEL_POST = 'DEL_POST'
 
 export const GET_FOLLOWING = 'GET_FOLLOWING'
 export const SEARCH_USER = 'SEARCH_USER'
+
+export const SET_CURR_USER = 'SET_CURR_USER'
+export const INC_CURR_USER_SEQ = 'INC_CURR_USER_SEQ'
