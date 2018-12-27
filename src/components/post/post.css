@@ -147,3 +147,37 @@
 .post-direct:hover {
     color: dodgerblue;
 }
+.tooltip-containerSS{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tooltipSS {
+    position: relative;
+    width: 250px;
+    height: auto;
+  }
+  
+  /* Tooltip text */
+  .tooltipSS .tooltiptext {
+      color: white;
+    position: absolute;
+    z-index: 100;
+    visibility: hidden;
+    background-color:rgba(0, 0, 0, 0.5);
+    padding-left: 15px;
+    padding-right: 15px;
+    
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  /*width: 250px;*/
+  bottom: calc(100% + 1px);
+  left: 50%; 
+  margin-left: -120px; /* Use half of the width (120/2 = 60), to center the tooltip */
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip-containerSS:hover .tooltipSS .tooltiptext {
+    visibility: visible;
+  }
