@@ -228,9 +228,10 @@ class Home extends Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     if (this.props.userKey) {
-      await UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
+      console.log("asdasdasdas");
+      UTILS.callAPI("getUser", { "publicKey": this.props.userKey }).then((res) => {
         console.log({ res });
         this.props.getUserInfo(res);
         this.getPosts(res.objectId);
@@ -252,16 +253,16 @@ class Home extends Component {
       });
     }
     else {
+      console.log("12349684123");
+      const user = UTILS.GetCurrentUser();
+      console.log({ user });
 
-      if (!UTILS.GetCurrentUser()) {
+      if (!user) {
         window.location.href = "/login";
         return
       }
-
-      if (!UTILS.GetCurrentUser()) {
-        const userInfo = UTILS.GetCurrentUser();
-        console.log({ userInfo });
-        this.props.getUserInfo(UTILS.GetCurrentUser());
+      else {
+        this.props.getUserInfo(user);
         this.getPosts("currentUser");
         this.getFollowingList("currentUser");
       }
