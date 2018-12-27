@@ -226,6 +226,11 @@ class Post extends Component {
           >
             {this.getPostReact()}
             {this.props.post.postLike}
+            <div className='tooltip-containerSS'>
+              <div className='tooltipSS'>
+                {this.getPostReactorsList()}
+              </div>
+            </div>
           </div>
           <div
             className="col-sm-2 text-left post-react-button"
@@ -239,6 +244,20 @@ class Post extends Component {
       );
     }
   };
+
+  getPostReactorsList = () => {
+    console.log(this.props.post.reactions);
+    let reactors = this.props.post.reactions;
+    if (!reactors) {
+      return <div></div>;
+    }
+    reactors = reactors.map((reaction) => {
+      console.log(reaction.user.name)
+      const reactionJsx = <li>{reaction.user.name}</li>
+      return reactionJsx;
+    });
+    return <div className='tooltiptext'>{reactors}</div>;
+  }
 
   showComments = () => {
     if (this.props.post.comments) {
@@ -293,7 +312,6 @@ class Post extends Component {
         );
       }
     }
-
 
     return (
       <div className="container post-container">
